@@ -13,7 +13,7 @@ class Settings extends Model
     protected $fillable = [
         'name',
         'description',
-        'slug',
+        'domain',
         'logos',
         'langs',
         'address',

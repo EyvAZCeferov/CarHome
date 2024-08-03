@@ -131,17 +131,38 @@ if (!function_exists("translateWithFallback")) {
 }
 
 if (!function_exists('settings')) {
-    function settings($key = null)
+    function settings($key = null,$type=null)
     {
-        $model = Settings::where('slug',$key)->first();
-        return Cache::rememberForever("settings" . $key . Session::getId(), fn () => $model);
+        $model = Settings::orderBy('id','DESC');
+        if(isset($key) && !empty($key)){
+            if($type=='domain')
+                $model = $model->where('domain',$key);
+            else
+                $model = $model->where("id",$key);
+
+            $model = $model->first();
+        }else{
+            $model = $model->get();
+        }
+        return Cache::rememberForever("settings" . $key.$type . Session::getId(), fn () => $model);
     }
 }
 
-if (!function_exists('settings')) {
-    function settings($key = null)
+if (!function_exists('blogs')) {
+    function blogs($key = null,$type=null)
     {
-        $model = Settings::where('slug',$key)->first();
-        return Cache::rememberForever("settings" . $key . Session::getId(), fn () => $model);
+        $model = Blogs::orderBy('id','DESC');
+        if(isset($key) && !empty($key)){
+            if($type=='setting_id')
+                $model = $model->where('setting_id',$key)->get();
+            else if($type=='slug')
+                $model = $model->where("slugs->az_slug",$key)->orWhere("slugs->ru_slug",$key)->orWhere("slugs->en_slug",$key)->first();
+            else
+                $model = $model->where("id",$key)->first();
+
+        }else{
+            $model = $model->get();
+        }
+        return Cache::rememberForever("blogs" . $key.$type . Session::getId(), fn () => $model);
     }
 }

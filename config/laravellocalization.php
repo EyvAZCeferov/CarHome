@@ -297,6 +297,11 @@ return [
         //'jv-Java'     => ['name' => 'Javanese (Javanese)',    'script' => 'Java', 'native' => 'ꦧꦱꦗꦮ', 'regional' => ''],
         //'ko'          => ['name' => 'Korean',                 'script' => 'Hang', 'native' => '한국어', 'regional' => 'ko_KR'],
     ],
+    'localesall'=>[
+        'az',
+        'ru',
+        'en',
+    ],
     'useAcceptLanguageHeader' => true,
     'hideDefaultLocaleInURL' => false,
     'localesOrder' => [],

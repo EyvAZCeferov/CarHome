@@ -1,0 +1,99 @@
+@extends('backend.layouts.main')
+@section('title', $pageparams['title'])
+@section('content')
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>{{ $pageparams['title'] }}</h2>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('admin.index', ['page' => 'welcome']) }}">İdarə Paneli</a>
+                </li>
+                <li class="breadcrumb-item active">
+                    <strong>{{ $pageparams['title'] }}</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-lg-2">
+
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox ">
+
+                    <div class="ibox-title">
+                        <div class="ibox-tools mb-3">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="fullscreen-link">
+                                <i class="fa fa-expand"></i>
+                            </a>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+
+                        <div class="row align-items-center">
+                            <div class="col-6">
+                                <h5>{{ $pageparams['title'] }}</h5>
+                            </div>
+                            <div class="col-6 text-right">
+                                <a href="{{ route('admin.create_edit', ['page' => $pageparams['routename']]) }}"
+                                    class="btn btn-w-m btn-primary">Yeni</a>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="ibox-content">
+                        <table class="table table-bordered table-hover dataTables-base" data-order="2">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">#</th>
+                                    @foreach ($pageparams['fields'] as $key => $value )
+                                        <th class="text-center">{{ $value }}</th>
+                                    @endforeach
+                                    <th class="text-center"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (!empty($data) && count($data) > 0)
+                                    @foreach ($data as $dat)
+                                        <tr class="gradeX">
+                                            <td>{{ $loop->iteration() }}</td>
+
+                                            <td>{{ $dat->name['az_name'] }}</td>
+                                            <td
+                                                class="text-white @if ($dat->status == 1) bg-success @else bg-danger @endif ">
+                                                {{ $dat->status == 1 ? 'Aktiv' : 'Passiv' }}</td>
+
+                                            <td class="text-right">
+                                                <a href="{{ route('admin.create_edit', ['page' => $pageparams['routename'], 'id' => $dat->id]) }}"
+                                                    class="btn btn-warning btn-sm">Yenilə</a>
+                                                <form
+                                                    action="{{ route('admin.destroy', ['page' => $pageparams['routename'], 'id' => $dat->id]) }}"
+                                                    class="d-inline-block" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm">Sil</button>
+                                                </form>
+
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr class="gradeX text-center text-danger">
+                                        Məlumat tapılmadı
+                                    </tr>
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

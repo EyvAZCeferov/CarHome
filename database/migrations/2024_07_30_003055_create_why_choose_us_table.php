@@ -11,21 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create('why_choose_us', function (Blueprint $table) {
             $table->id();
+
             $table->json("name")->nullable();
             $table->json("description")->nullable();
-            $table->json("address")->nullable();
-            $table->json("social_media")->nullable();
-            $table->json("logos")->nullable();
-            $table->json("langs")->nullable();
-            $table->json("additional_data")->nullable();
-            $table->string("slug")->nullable();
+            $table->integer("order_number")->default(1);
+            $table->boolean("status")->default(true);
 
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references("id")->on("users")->onDelete('cascade');
 
-            // estate,car
+            $table->unsignedBigInteger('setting_id')->nullable();
+            $table->foreign('setting_id')->references("id")->on("settings")->onDelete('cascade');
+
+            $table->json("images")->nullable();
+            $table->json("additional_data")->nullable();
+
             $table->timestamps();
             $table->softDeletes();
         });
@@ -36,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('why_choose_us');
     }
 };

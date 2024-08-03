@@ -6,26 +6,29 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Visits extends Model
+class WhyChooseUs extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $table = 'visits';
+    protected $table = 'why_choose_us';
     protected $fillable = [
-        'ip_address',
-        'url',
-        'meta',
+        'name',
+        'description',
+        'order_number',
         'status',
+        'user_id',
         'setting_id',
-        'element_id',
-        'element_type',
-        'user_id'
+        'images',
+        'additional_data',
     ];
     protected $casts = [
-        'meta' => "json",
-        'status' => "boolean",
-        'setting_id' => "integer",
-        'element_id' => "integer",
-        'user_id' => "integer"
+        'name' => 'json',
+        'description' => 'json',
+        'images' => 'json',
+        'additional_data' => 'json',
+        'status' => 'boolean',
+        'order_number' => 'integer',
+        'user_id' => 'integer',
+        'setting_id' => 'integer',
     ];
     public function user()
     {
