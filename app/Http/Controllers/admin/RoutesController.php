@@ -74,6 +74,109 @@ class RoutesController extends Controller
                         'user_id',
                     ];
                     break;
+                case 'faqs':
+                    $pagename = 'faqs';
+                    $title = 'F.A.Q.S';
+                    $routename = 'faqs';
+                    $data = faqs();
+                    $fields = [
+                        'namejson',
+                        'status',
+                        'setting',
+                        'user_id',
+                    ];
+                    break;
+                case 'managers':
+                    $pagename = 'managers';
+                    $title = 'İdarəçilər';
+                    $routename = 'managers';
+                    $data = users();
+                    $fields = [
+                        'name',
+                        'email',
+                    ];
+                    break;
+                case 'categories':
+                    $pagename = 'categories';
+                    $title = 'Kateqoriyalar';
+                    $routename = 'categories';
+                    $data = categories();
+                    $fields = [
+                        'imagejson',
+                        'namejson',
+                        'status',
+                        'top_category_id',
+                        'user_id',
+                        'setting',
+                    ];
+                    break;
+                case 'teams':
+                    $pagename = 'teams';
+                    $title = 'Komanda';
+                    $routename = 'teams';
+                    $data = teams();
+                    $fields = [
+                        'image',
+                        'namejson',
+                        'status',
+                        'user_id',
+                        'setting',
+                    ];
+                    break;
+                case 'whychooseus':
+                    $pagename = 'whychooseus';
+                    $title = 'Niyə bizi seçirsiz';
+                    $routename = 'whychooseus';
+                    $data = whychooseus();
+                    $fields = [
+                        'imagejson',
+                        'namejson',
+                        'status',
+                        'user_id',
+                        'setting',
+                    ];
+                    break;
+                case 'contactus':
+                    $pagename = 'contactus';
+                    $title = 'Bizimlə əlaqə';
+                    $routename = 'contactus';
+                    $data = contactus();
+                    $fields = [
+                        'user_info',
+                        'ip_address',
+                        'metta',
+                        'setting',
+                    ];
+                    break;
+                case 'services':
+                    $pagename = 'services';
+                    $title = 'Xidmətlər';
+                    $routename = 'services';
+                    $data = services();
+                    $fields = [
+                        'imagejson',
+                        'video',
+                        'namejson',
+                        'status',
+                        'user_id',
+                        'setting',
+                    ];
+                    break;
+                case 'products':
+                    $pagename = 'products';
+                    $title = 'Məhsullar';
+                    $routename = 'products';
+                    $data = products();
+                    $fields = [
+                        'imagejson',
+                        'namejson',
+                        'pricejson',
+                        'category_id',
+                        'status',
+                        'user_id',
+                        'setting',
+                    ];
+                    break;
             }
 
             $pageparams = [
@@ -135,20 +238,19 @@ class RoutesController extends Controller
                     ];
                     break;
                 case 'standartpages':
-                        $pagename = 'standartpages';
-                        $title = 'Standart səhifə' . ($request->has("id") && !empty($request->input("id")) ? ' yenilə' : ' əlavə et');
-                        $routename = 'standartpages';
-                        $data = $request->has('id') && !empty($request->input("id")) ? standartpages($request->input("id"), 'id') : null;
-                        $fields = [
-                            'namejson',
-                            'descjson',
-                            'imagesjson',
-                            'order_number',
-                            'status',
-                            'setting_id',
-                        ];
-                        break;
-
+                    $pagename = 'standartpages';
+                    $title = 'Standart səhifə' . ($request->has("id") && !empty($request->input("id")) ? ' yenilə' : ' əlavə et');
+                    $routename = 'standartpages';
+                    $data = $request->has('id') && !empty($request->input("id")) ? standartpages($request->input("id"), 'id') : null;
+                    $fields = [
+                        'namejson',
+                        'descjson',
+                        'imagesjson',
+                        'order_number',
+                        'status',
+                        'setting_id',
+                    ];
+                    break;
                 case 'sliders':
                     $pagename = 'sliders';
                     $title = 'Slayder' . ($request->has("id") && !empty($request->input("id")) ? ' yenilə' : ' əlavə et');
@@ -161,6 +263,118 @@ class RoutesController extends Controller
                         'type_of_slider_image_or_video',
                         'button_data',
                         'order_number',
+                        'status',
+                        'setting_id',
+                    ];
+                    break;
+                case 'faqs':
+                    $pagename = 'faqs';
+                    $title = 'F.A.Q.S' . ($request->has("id") && !empty($request->input("id")) ? ' yenilə' : ' əlavə et');
+                    $routename = 'faqs';
+                    $data = $request->has('id') && !empty($request->input("id")) ? faqs($request->input("id"), 'id') : null;
+                    $fields = [
+                        'namejson',
+                        'descjson',
+                        'order_number',
+                        'status',
+                        'setting_id',
+                    ];
+                    break;
+                case 'managers':
+                    $pagename = 'managers';
+                    $title = 'İdarəçi' . ($request->has("id") && !empty($request->input("id")) ? ' yenilə' : ' əlavə et');
+                    $routename = 'managers';
+                    $data = $request->has('id') && !empty($request->input("id")) ? users($request->input("id"), 'id') : null;
+                    $fields = [
+                        'name',
+                        'email',
+                        'password',
+                    ];
+                    break;
+                case 'categories':
+                    $pagename = 'categories';
+                    $title = 'Kateqoriya' . ($request->has("id") && !empty($request->input("id")) ? ' yenilə' : ' əlavə et');
+                    $routename = 'categories';
+                    $data = $request->has('id') && !empty($request->input("id")) ? categories($request->input("id"), 'id') : null;
+                    $fields = [
+                        'namejson',
+                        'descjson',
+                        'imagesjson',
+                        'order_number',
+                        'status',
+                        'setting_id',
+                        'top_category_id',
+                    ];
+                    break;
+                case 'teams':
+                    $pagename = 'teams';
+                    $title = 'Komanda üzvü' . ($request->has("id") && !empty($request->input("id")) ? ' yenilə' : ' əlavə et');
+                    $routename = 'teams';
+                    $data = $request->has('id') && !empty($request->input("id")) ? teams($request->input("id"), 'id') : null;
+                    $fields = [
+                        'namejson',
+                        'descjson',
+                        'image',
+                        'order_number',
+                        'status',
+                        'setting_id',
+                    ];
+                    break;
+                case 'whychooseus':
+                    $pagename = 'whychooseus';
+                    $title = 'Niyə bizi seçməlisiniz' . ($request->has("id") && !empty($request->input("id")) ? ' yenilə' : ' əlavə et');
+                    $routename = 'whychooseus';
+                    $data = $request->has('id') && !empty($request->input("id")) ? whychooseus($request->input("id"), 'id') : null;
+                    $fields = [
+                        'namejson',
+                        'descjson',
+                        'imagesjson',
+                        'order_number',
+                        'status',
+                        'setting_id',
+                    ];
+                    break;
+                case 'contactus':
+                    $pagename = 'contactus';
+                    $title = 'Bizimlə əlaqə' . ($request->has("id") && !empty($request->input("id")) ? ' yenilə' : ' əlavə et');
+                    $routename = 'contactus';
+                    $data = $request->has('id') && !empty($request->input("id")) ? contactus($request->input("id"), 'id') : null;
+                    $fields = [
+                        'user_info',
+                        'ip_address',
+                        'meta',
+                        'setting_id',
+                    ];
+                    break;
+                case 'services':
+                    $pagename = 'services';
+                    $title = 'Xidmət' . ($request->has("id") && !empty($request->input("id")) ? ' yenilə' : ' əlavə et');
+                    $routename = 'services';
+                    $data = $request->has('id') && !empty($request->input("id")) ? services($request->input("id"), 'id') : null;
+                    $fields = [
+                        'namejson',
+                        'descjson',
+                        'imagesjson',
+                        'video',
+                        'top_service_id',
+                        'order_number',
+                        'status',
+                        'setting_id',
+                    ];
+                    break;
+                case 'products':
+                    $pagename = 'products';
+                    $title = 'Məhsul' . ($request->has("id") && !empty($request->input("id")) ? ' yenilə' : ' əlavə et');
+                    $routename = 'products';
+                    $data = $request->has('id') && !empty($request->input("id")) ? products($request->input("id"), 'id') : null;
+                    $fields = [
+                        'namejson',
+                        'descjson',
+                        'imagesjson',
+                        'pricejson',
+                        'category_id',
+                        'order_number',
+                        'services_id',
                         'status',
                         'setting_id',
                     ];

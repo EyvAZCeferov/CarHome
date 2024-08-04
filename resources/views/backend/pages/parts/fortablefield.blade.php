@@ -84,11 +84,105 @@
         @break
 
         @case('setting')
-            @php($setting=settings($data->setting_id,'id'))
+            @php($setting = settings($data->setting_id, 'id'))
             @if (!empty($setting) && isset($setting->id) && !empty($setting->id))
-                {{ $setting->name[app()->getLocale().'_name'] }}
+                {{ $setting->name[app()->getLocale() . '_name'] }}
             @else
                 <span class="text-center text-danger">Məlumat tapılmadı</span>
+            @endif
+        @break
+
+        @case('image_or_video')
+            @if ($data->type_of == 'image' && isset($data->image_or_video) && !empty($data->image_or_video))
+                <img src="{{ getImageUrl($data->image_or_video, 'images') }}" class="img-fluid img-responsive"
+                    style="height:100px" />
+            @elseif($data->type_of == 'video' && isset($data->image_or_video) && !empty($data->image_or_video))
+                <video style="width:100%;" src="{{ getImageUrl($data->image_or_video, 'images') }}" controls></video>
+            @endif
+        @break
+
+        @case('image')
+            @if (isset($data->image) && !empty($data->image))
+                <img src="{{ getImageUrl($data->image, 'images') }}" class="img-fluid img-responsive" style="height:100px" />
+            @else
+                <p class="text-center text-danger">Məlumat tapılmadı</p>
+            @endif
+        @break
+
+        @case('video')
+            @if (isset($data->video) && !empty($data->video))
+                <video src="{{ getImageUrl($data->video, 'images') }}"></video>
+            @else
+                <p class="text-center text-danger">Məlumat tapılmadı</p>
+            @endif
+        @break
+
+        @case('name')
+            {{ $data->name }}
+        @break
+
+        @case('email')
+            {{ $data->email }}
+        @break
+
+        @case('top_category_id')
+            @php($category = categories($data->top_category_id, 'id'))
+            @if (!empty($category) && isset($category->id))
+                {{ $category->name[app()->getLocale() . '_name'] }}
+            @else
+                <span class="text-center text-danger">Məlumat tapılmadı</span>
+            @endif
+        @break
+
+        @case('top_service_id')
+            @php($service = services($data->top_service_id, 'id'))
+            @if (!empty($service) && isset($service->id))
+                {{ $service->name[app()->getLocale() . '_name'] }}
+            @else
+                <span class="text-center text-danger">Məlumat tapılmadı</span>
+            @endif
+        @break
+
+        @case('user_info')
+            @if (!empty($data->user_info) && isset($data->user_info['name']) && !empty($data->user_info['name']))
+                {{ $data->user_info['name'] }} @if (isset($data->user_info['email']) && !empty($data->user_info['email']))
+                    <a href="mailto:{{ $data->user_info['email'] }}">{{ $data->user_info['email'] }}</a>
+                @endif
+                @if (isset($data->user_info['phone']) && !empty($data->user_info['phone']))
+                    <a href="tel:{{ $data->user_info['phone'] }}">{{ $data->user_info['phone'] }}</a>
+                @endif
+            @else
+                <span class="text-center text-danger">Məlumat tapılmadı</span>
+            @endif
+        @break
+
+        @case('ip_address')
+            {{ $data->ip_address }}
+        @break
+
+        @case('meta')
+            @if (!empty($data->meta) && isset($data->meta['device']) && !empty($data->meta['device']))
+                {{ $data->meta['device'] }} {{ $data->meta['browser'] }}
+            @else
+                <span class="text-center text-danger">Məlumat tapılmadı</span>
+            @endif
+        @break
+
+        @case('category_id')
+            @php($category = categories($data->category_id, 'id'))
+            @if (!empty($category) && isset($category->id) && !empty($category->id))
+                {{ $category->name[app()->getLocale() . '_name'] }}
+            @else
+                <span class="text-center text-danger">Məlumat tapılmadı</span>
+            @endif
+        @break
+
+        @case('pricejson')
+            @if (isset($data->prices['endirim_price']) && !empty($data->prices['endirim_price']))
+                {{ $data->prices['endirim_price'] }}
+                <small style="text-decoration: overline">{{ $data->prices['price'] }}</small>
+            @else
+                {{ $data->prices['price'] }}
             @endif
         @break
 

@@ -39,24 +39,28 @@
                             <div class="col-6">
                                 <h5>{{ $pageparams['title'] }}</h5>
                             </div>
-                            <div class="col-6 text-right">
-                                <a href="{{ route('admin.create_edit', ['page' => $pageparams['routename']]) }}"
-                                    class="btn btn-w-m btn-primary">Yeni</a>
-                            </div>
+
+                            @if ($pageparams['routename'] != 'contactus')
+                                <div class="col-6 text-right">
+                                    <a href="{{ route('admin.create_edit', ['page' => $pageparams['routename']]) }}"
+                                        class="btn btn-w-m btn-primary">Yeni</a>
+                                </div>
+                            @endif
+
                         </div>
-
-
                     </div>
 
                     <div class="ibox-content">
-                        <table class="table table-bordered table-hover dataTables-base" data-order="2">
+                        <table class="table table-bordered table-hover dataTables-base" data-order="1">
                             <thead>
                                 <tr>
                                     <th class="text-center">#</th>
                                     @foreach ($pageparams['fields'] as $key => $value)
-                                        @include('backend.pages.parts.fortableheadingfield',['value'=>$value])
+                                        @include('backend.pages.parts.fortableheadingfield', [
+                                            'value' => $value,
+                                        ])
                                     @endforeach
-                                    <th class="text-center"></th>
+                                    <th class="text-center">Düymələr</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -80,7 +84,8 @@
                                                     class="d-inline-block" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i
+                                                            class="fa fa-trash"></i></button>
                                                 </form>
 
                                             </td>

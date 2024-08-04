@@ -12,6 +12,7 @@ use App\Models\Settings;
 use App\Models\Sliders;
 use App\Models\StandartPages;
 use App\Models\Teams;
+use App\Models\WhyChooseUs;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cache;
@@ -157,7 +158,7 @@ if (!function_exists('categories')) {
                 $model = $model->where('setting_id', $key)->get();
             else if ($type == 'slug')
                 $model = $model->where('slugs->az_slug', $key)->where('slugs->en_slug', $key)->where('slugs->ru_slug', $key)->first();
-            else if($type=='id')
+            else
                 $model = $model->where("id", $key)->first();
         } else {
             $model = $model->get();
@@ -175,12 +176,44 @@ if (!function_exists('standartpages')) {
                 $model = $model->where('setting_id', $key)->get();
             else if ($type == 'slug')
                 $model = $model->where('slugs->az_slug', $key)->where('slugs->en_slug', $key)->where('slugs->ru_slug', $key)->first();
-            else if($type=='id')
+            else
                 $model = $model->where("id", $key)->first();
         } else {
             $model = $model->get();
         }
         return Cache::rememberForever("standartpages" . $key . $type, fn () => $model);
+    }
+}
+
+if (!function_exists('sliders')) {
+    function sliders($key = null, $type = null)
+    {
+        $model = Sliders::orderBy('id', 'DESC');
+        if (isset($key) && !empty($key)) {
+            if ($type == 'setting_id')
+                $model = $model->where('setting_id', $key)->get();
+            else
+                $model = $model->where("id", $key)->first();
+        } else {
+            $model = $model->get();
+        }
+        return Cache::rememberForever("sliders" . $key . $type, fn () => $model);
+    }
+}
+
+if (!function_exists('faqs')) {
+    function faqs($key = null, $type = null)
+    {
+        $model = Faqs::orderBy('id', 'DESC');
+        if (isset($key) && !empty($key)) {
+            if ($type == 'setting_id')
+                $model = $model->where('setting_id', $key)->get();
+            else
+                $model = $model->where("id", $key)->first();
+        } else {
+            $model = $model->get();
+        }
+        return Cache::rememberForever("faqs" . $key . $type, fn () => $model);
     }
 }
 
@@ -199,6 +232,100 @@ if (!function_exists('blogs')) {
             $model = $model->get();
         }
         return Cache::rememberForever("blogs" . $key . $type . Session::getId(), fn () => $model);
+    }
+}
+
+if (!function_exists('teams')) {
+    function teams($key = null, $type = null)
+    {
+        $model = Teams::orderBy('id', 'DESC');
+        if (isset($key) && !empty($key)) {
+            if ($type == 'setting_id')
+                $model = $model->where('setting_id', $key)->get();
+            else if ($type == 'slug')
+                $model = $model->where('slugs->az_slug', $key)->where('slugs->en_slug', $key)->where('slugs->ru_slug', $key)->first();
+            else
+                $model = $model->where("id", $key)->first();
+        } else {
+            $model = $model->get();
+        }
+        return Cache::rememberForever("teams" . $key . $type, fn () => $model);
+    }
+}
+
+if (!function_exists('whychooseus')) {
+    function whychooseus($key = null, $type = null)
+    {
+        $model = WhyChooseUs::orderBy('id', 'DESC');
+        if (isset($key) && !empty($key)) {
+            if ($type == 'setting_id')
+                $model = $model->where('setting_id', $key)->get();
+            else if ($type == 'slug')
+                $model = $model->where('slugs->az_slug', $key)->where('slugs->en_slug', $key)->where('slugs->ru_slug', $key)->first();
+            else
+                $model = $model->where("id", $key)->first();
+        } else {
+            $model = $model->get();
+        }
+        return Cache::rememberForever("whychooseus" . $key . $type, fn () => $model);
+    }
+}
+
+if (!function_exists('contactus')) {
+    function contactus($key = null, $type = null)
+    {
+        $model = ContactUs::orderBy('id', 'DESC');
+        if (isset($key) && !empty($key)) {
+            if ($type == 'setting_id')
+                $model = $model->where('setting_id', $key)->get();
+            else if ($type == 'slug')
+                $model = $model->where('slugs->az_slug', $key)->where('slugs->en_slug', $key)->where('slugs->ru_slug', $key)->first();
+            else
+                $model = $model->where("id", $key)->first();
+        } else {
+            $model = $model->get();
+        }
+        return Cache::rememberForever("contactus" . $key . $type, fn () => $model);
+    }
+}
+
+if (!function_exists('services')) {
+    function services($key = null, $type = null)
+    {
+        $model = Services::orderBy('id', 'DESC');
+        if (isset($key) && !empty($key)) {
+            if ($type == 'setting_id')
+                $model = $model->where('setting_id', $key)->get();
+            else if ($type == 'top_service_id')
+                $model = $model->where('top_service_id', $key)->get();
+            else if ($type == 'slug')
+                $model = $model->where('slugs->az_slug', $key)->where('slugs->en_slug', $key)->where('slugs->ru_slug', $key)->first();
+            else
+                $model = $model->where("id", $key)->first();
+        } else {
+            $model = $model->get();
+        }
+        return Cache::rememberForever("services" . $key . $type, fn () => $model);
+    }
+}
+
+if (!function_exists('products')) {
+    function products($key = null, $type = null)
+    {
+        $model = Products::orderBy('id', 'DESC');
+        if (isset($key) && !empty($key)) {
+            if ($type == 'setting_id')
+                $model = $model->where('setting_id', $key)->get();
+            else if ($type == 'category_id')
+                $model = $model->where('category_id', $key)->get();
+            else if ($type == 'slug')
+                $model = $model->where('slugs->az_slug', $key)->where('slugs->en_slug', $key)->where('slugs->ru_slug', $key)->first();
+            else
+                $model = $model->where("id", $key)->first();
+        } else {
+            $model = $model->get();
+        }
+        return Cache::rememberForever("products" . $key . $type, fn () => $model);
     }
 }
 

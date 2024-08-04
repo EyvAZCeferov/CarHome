@@ -7,8 +7,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Models\Settings;
+use App\Models\Sliders;
 use App\Models\Blogs;
+use App\Models\Categories;
+use App\Models\Faqs;
+use App\Models\Services;
 use App\Models\StandartPages;
+use App\Models\Teams;
+use App\Models\User;
+use App\Models\WhyChooseUs;
 
 class FunctionsController extends Controller
 {
@@ -26,9 +33,21 @@ class FunctionsController extends Controller
                     $data = $request->has("id") && !empty($request->input("id")) ? standartpages($request->input("id"), 'id') : new StandartPages();
                 case 'sliders':
                     $data = $request->has("id") && !empty($request->input("id")) ? sliders($request->input("id"), 'id') : new Sliders();
+                case 'faqs':
+                    $data = $request->has("id") && !empty($request->input("id")) ? faqs($request->input("id"), 'id') : new Faqs();
+                case 'managers':
+                    $data = $request->has("id") && !empty($request->input("id")) ? users($request->input("id"), 'id') : new User();
+                case 'categories':
+                    $data = $request->has("id") && !empty($request->input("id")) ? categories($request->input("id"), 'id') : new Categories();
+                case 'teams':
+                    $data = $request->has("id") && !empty($request->input("id")) ? teams($request->input("id"), 'id') : new Teams();
+                case 'whychooseus':
+                    $data = $request->has("id") && !empty($request->input("id")) ? whychooseus($request->input("id"), 'id') : new WhyChooseUs();
+                case 'services':
+                    $data = $request->has("id") && !empty($request->input("id")) ? services($request->input("id"), 'id') : new Services();
             }
 
-            if ($request->has("user_id") && !empty($request->input("user_id")))
+            if (($request->has("user_id") && !empty($request->input("user_id"))) && $page!='managers')
                 $data->user_id = $request->input("user_id");
 
             if ($request->has("setting_id") && !empty($request->input("setting_id")))
@@ -37,17 +56,38 @@ class FunctionsController extends Controller
             if ($request->has("category_id") && !empty($request->input("category_id")))
                 $data->category_id = $request->input("category_id");
 
+            if ($request->has("top_service_id") && !empty($request->input("top_service_id")))
+                $data->top_service_id = $request->input("top_service_id");
+
             if ($request->has("order_number") && !empty($request->input("order_number")))
                 $data->order_number = $request->input("order_number")??1;
 
             if ($request->has("status") && !empty($request->input("status")))
                 $data->status = $request->input("status")=='on'?true:false;
 
-            if ($request->has("image_or_video") && !empty($request->input("image_or_video")))
+            if ($request->hasFile("image_or_video") && !empty($request->image_or_video))
                 $data->image_or_video = image_upload($request->image_or_video,'images');
+
+            if ($request->hasFile("image") && !empty($request->image))
+                $data->image = image_upload($request->image,'images');
+
+            if ($request->hasFile("video") && !empty($request->video))
+                $data->video = image_upload($request->video,'images');
 
             if ($request->has("type_of") && !empty($request->input("type_of")))
                 $data->type_of = $request->input("type_of")??'image';
+
+            if ($request->has("name") && !empty($request->input("name")))
+                $data->name = $request->input("name");
+
+            if ($request->has("emailuser") && !empty($request->input("emailuser")))
+                $data->email = $request->input("emailuser");
+
+            if ($request->has("password") && !empty($request->input("password")))
+                $data->password = bcrypt($request->input("password"));
+
+            if ($request->has("top_category_id") && !empty($request->input("top_category_id")))
+                $data->top_category_id = bcrypt($request->input("top_category_id"));
 
             if ($request->has("button_data") && !empty($request->input("button_data")))
                 $data->button_data = $request->input("button_data")??[];
@@ -178,6 +218,27 @@ class FunctionsController extends Controller
                 case 'standartpages':
                     $data = standartpages($request->input("id"));
                     break;
+                case 'sliders':
+                    $data = sliders($request->input("id"));
+                    break;
+                case 'faqs':
+                    $data = faqs($request->input("id"));
+                    break;
+                case 'managers':
+                    $data = users($request->input("id"));
+                    break;
+                case 'categories':
+                    $data = categories($request->input("id"));
+                    break;
+                case 'teams':
+                    $data = teams($request->input("id"));
+                    break;
+                case 'whychooseus':
+                    $data = whychooseus($request->input("id"));
+                    break;
+                case 'services':
+                    $data = services($request->input("id"));
+                    break;
             }
 
             if (!empty($data) && isset($data->id)) {
@@ -199,6 +260,12 @@ class FunctionsController extends Controller
                     $data = blogs($request->input("id"),'id');
                 case 'standartpages':
                     $data = standartpages($request->input("id"),'id');
+                case 'categories':
+                    $data = categories($request->input("id"),'id');
+                case 'whychooseus':
+                    $data = whychooseus($request->input("id"),'id');
+                case 'services':
+                    $data = services($request->input("id"),'id');
             }
 
             if(!empty($data) && isset($data->id)){

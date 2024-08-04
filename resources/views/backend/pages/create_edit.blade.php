@@ -128,22 +128,84 @@
                                 ])
                             @endif
 
+                            @if (in_array('button_data', $pageparams['fields']))
+                                @include('backend.pages.parts.sliderbuttonfields', [
+                                    'data' => $data->button_data ?? null,
+                                ])
+                            @endif
+
+                            @if (in_array('pricejson', $pageparams['fields']))
+                                @include('backend.pages.parts.pricejsonfields', [
+                                    'data' => $data->prices ?? null,
+                                ])
+                            @endif
 
                             <div class="row">
 
                                 @if (in_array('image_or_video', $pageparams['fields']))
                                     @include('backend.pages.parts.image_or_video', [
                                         'data' => $data->image_or_video ?? null,
-                                        'type_of' => $data->type_of ?? null,
+                                        'type_of' => $data->type_of ?? 'image',
                                     ])
                                 @endif
-                                
+
+                                @if (in_array('image', $pageparams['fields']))
+                                    @include('backend.pages.parts.imagefield', [
+                                        'data' => $data->image ?? null,
+                                    ])
+                                @endif
+
+                                @if (in_array('video', $pageparams['fields']))
+                                    @include('backend.pages.parts.videofield', [
+                                        'data' => $data->video ?? null,
+                                    ])
+                                @endif
+
+                                @if (in_array('type_of_slider_image_or_video', $pageparams['fields']))
+                                    @include('backend.pages.parts.type_of_slider_image_or_video', [
+                                        'data' => $data->type_of ?? null,
+                                        'name' => 'type_of',
+                                        'label' => 'Tip',
+                                        'required' => true,
+                                    ])
+                                @endif
+
                                 @if (in_array('domain', $pageparams['fields']))
                                     @include('backend.pages.parts.inputfield', [
                                         'data' => $data->domain ?? null,
                                         'name' => 'domain',
                                         'label' => 'Domen',
                                         'type' => 'text',
+                                        'required' => true,
+                                    ])
+                                @endif
+
+                                @if (in_array('name', $pageparams['fields']))
+                                    @include('backend.pages.parts.inputfield', [
+                                        'data' => $data->name ?? null,
+                                        'name' => 'name',
+                                        'label' => 'Ad',
+                                        'type' => 'text',
+                                        'required' => true,
+                                    ])
+                                @endif
+
+                                @if (in_array('email', $pageparams['fields']))
+                                    @include('backend.pages.parts.inputfield', [
+                                        'data' => $data->email ?? null,
+                                        'name' => 'emailuser',
+                                        'label' => 'E-mail',
+                                        'type' => 'email',
+                                        'required' => true,
+                                    ])
+                                @endif
+
+                                @if (in_array('password', $pageparams['fields']))
+                                    @include('backend.pages.parts.inputfield', [
+                                        'data' => null,
+                                        'name' => 'password',
+                                        'label' => 'Şifrə',
+                                        'type' => 'password',
                                         'required' => true,
                                     ])
                                 @endif
@@ -186,6 +248,26 @@
                                     ])
                                 @endif
 
+                                @if (in_array('top_service_id', $pageparams['fields']))
+                                    @include('backend.pages.parts.choisesfield', [
+                                        'data' => $data->top_service_id ?? null,
+                                        'collect' => services(),
+                                        'name' => 'top_service_id',
+                                        'label' => 'Xidmətlər',
+                                        'required' => false,
+                                    ])
+                                @endif
+
+                                @if (in_array('top_category_id', $pageparams['fields']))
+                                    @include('backend.pages.parts.choisesfield', [
+                                        'data' => $data->top_category_id ?? null,
+                                        'collect' => categories(),
+                                        'name' => 'top_category_id',
+                                        'label' => 'Üst kateqoriya',
+                                        'required' => false,
+                                    ])
+                                @endif
+
                                 @if (in_array('langsjson', $pageparams['fields']))
                                     @include('backend.pages.parts.langjson', [
                                         'data' => $data->langs ?? null,
@@ -194,6 +276,15 @@
                                 @endif
                             </div>
                             <br />
+
+                            @if (in_array('services_id', $pageparams['fields']))
+                                @include('backend.pages.parts.services', [
+                                    'data' => $data->services ?? null,
+                                    'label' => 'Xidmətlər',
+                                ])
+                            @endif
+
+                            <br/>
 
                             <button class="btn btn-primary btn-block">Saxla</button>
 
