@@ -53,8 +53,8 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">#</th>
-                                    @foreach ($pageparams['fields'] as $key => $value )
-                                        <th class="text-center">{{ $value }}</th>
+                                    @foreach ($pageparams['fields'] as $key => $value)
+                                        @include('backend.pages.parts.fortableheadingfield',['value'=>$value])
                                     @endforeach
                                     <th class="text-center"></th>
                                 </tr>
@@ -63,22 +63,24 @@
                                 @if (!empty($data) && count($data) > 0)
                                     @foreach ($data as $dat)
                                         <tr class="gradeX">
-                                            <td>{{ $loop->iteration() }}</td>
+                                            <td class="text-center">{{ $loop->iteration }}</td>
 
-                                            <td>{{ $dat->name['az_name'] }}</td>
-                                            <td
-                                                class="text-white @if ($dat->status == 1) bg-success @else bg-danger @endif ">
-                                                {{ $dat->status == 1 ? 'Aktiv' : 'Passiv' }}</td>
+                                            @foreach ($pageparams['fields'] as $key => $value)
+                                                @include('backend.pages.parts.fortablefield', [
+                                                    'data' => $dat,
+                                                    'type' => $value,
+                                                ])
+                                            @endforeach
 
                                             <td class="text-right">
                                                 <a href="{{ route('admin.create_edit', ['page' => $pageparams['routename'], 'id' => $dat->id]) }}"
-                                                    class="btn btn-warning btn-sm">Yenilə</a>
+                                                    class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
                                                 <form
                                                     action="{{ route('admin.destroy', ['page' => $pageparams['routename'], 'id' => $dat->id]) }}"
                                                     class="d-inline-block" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm">Sil</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                                                 </form>
 
                                             </td>

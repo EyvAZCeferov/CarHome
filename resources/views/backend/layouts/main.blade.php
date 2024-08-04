@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Globalmart Group">
-    <title>Admin</title>
+    <title>@yield("title",'Admin')</title>
 
     <link rel="icon" type="image/svg+xml" href="">
     <link rel="alternate icon" href="">

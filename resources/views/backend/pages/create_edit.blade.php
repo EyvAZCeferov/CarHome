@@ -5,7 +5,53 @@
 @push('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
     <script>
-        $('select').selectpicker();
+        $('.selectpicker').selectpicker();
+    </script>
+    <script>
+        function deleteimage(id, image) {
+            event.preventDefault();
+            var r = confirm("Şəkli silmək istədiyinizdən əminsiniz?");
+            if (r == true) {
+                $.ajax({
+                    url: "{{ route('delete.image') }}",
+                    type: 'DELETE',
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        'id': id,
+                        'image': `${image}`,
+                        routename: '{{ $pageparams['routename'] }}'
+                    },
+                    success: function(data) {
+                        if (data.status == 'success') {
+                            var imageElement = document.getElementById(image);
+
+                            if (imageElement) {
+                                imageElement.remove();
+                            }
+
+                            toastr.success(data.message);
+                        } else if (data.status == 'warning') {
+                            toastr.warning(data.message);
+                        } else if (data.status == 'danger') {
+                            toastr.error(data.message);
+                        }
+                    },
+                    error: function(err) {
+                        toastr.error("Xəta yarandı yenidən yoxlayın");
+                    }
+                });
+            } else {
+                toastr.error("Uğursuz");
+            }
+
+        }
+    </script>
+
+    <script>
+        var elem = document.querySelector('.js-switch');
+        var switchery = new Switchery(elem, {
+            color: '#1AB394'
+        });
     </script>
 @endpush
 @section('content')
@@ -75,13 +121,70 @@
                                 ])
                             @endif
 
-                            <div class="row">
-                                @include('backend.pages.parts.inputfield', [
-                                    'data' => $data->domain ?? null,
-                                    'name' => 'domain',
-                                    'label' => 'Domen',
-                                    'type' => 'text',
+                            @if (in_array('imagesjson', $pageparams['fields']))
+                                @include('backend.pages.parts.imagesfields', [
+                                    'data' => $data->images ?? null,
+                                    'elem_id' => $data->id ?? null,
                                 ])
+                            @endif
+
+
+                            <div class="row">
+
+                                @if (in_array('image_or_video', $pageparams['fields']))
+                                    @include('backend.pages.parts.image_or_video', [
+                                        'data' => $data->image_or_video ?? null,
+                                        'type_of' => $data->type_of ?? null,
+                                    ])
+                                @endif
+                                
+                                @if (in_array('domain', $pageparams['fields']))
+                                    @include('backend.pages.parts.inputfield', [
+                                        'data' => $data->domain ?? null,
+                                        'name' => 'domain',
+                                        'label' => 'Domen',
+                                        'type' => 'text',
+                                        'required' => true,
+                                    ])
+                                @endif
+
+                                @if (in_array('order_number', $pageparams['fields']))
+                                    @include('backend.pages.parts.inputfield', [
+                                        'data' => $data->order_number ?? null,
+                                        'name' => 'order_number',
+                                        'label' => 'Sıra nömrəsi',
+                                        'type' => 'number',
+                                        'required' => true,
+                                    ])
+                                @endif
+
+                                @if (in_array('status', $pageparams['fields']))
+                                    @include('backend.pages.parts.statusfield', [
+                                        'data' => $data->status ?? null,
+                                        'name' => 'status',
+                                        'label' => 'Status',
+                                    ])
+                                @endif
+
+                                @if (in_array('setting_id', $pageparams['fields']))
+                                    @include('backend.pages.parts.choisesfield', [
+                                        'data' => $data->setting_id ?? null,
+                                        'collect' => settings(),
+                                        'name' => 'setting_id',
+                                        'label' => 'Vebsayt',
+                                        'required' => true,
+                                    ])
+                                @endif
+
+                                @if (in_array('category_id', $pageparams['fields']))
+                                    @include('backend.pages.parts.choisesfield', [
+                                        'data' => $data->category_id ?? null,
+                                        'collect' => categories(),
+                                        'name' => 'category_id',
+                                        'label' => 'Kateqoriyalar',
+                                        'required' => false,
+                                    ])
+                                @endif
 
                                 @if (in_array('langsjson', $pageparams['fields']))
                                     @include('backend.pages.parts.langjson', [

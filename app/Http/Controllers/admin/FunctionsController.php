@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Models\Settings;
-
+use App\Models\Blogs;
+use App\Models\StandartPages;
 
 class FunctionsController extends Controller
 {
@@ -19,10 +20,37 @@ class FunctionsController extends Controller
             switch ($page) {
                 case 'settings':
                     $data = $request->has("id") && !empty($request->input("id")) ? settings($request->input("id"), 'id') : new Settings();
+                case 'blogs':
+                    $data = $request->has("id") && !empty($request->input("id")) ? blogs($request->input("id"), 'id') : new Blogs();
+                case 'standartpages':
+                    $data = $request->has("id") && !empty($request->input("id")) ? standartpages($request->input("id"), 'id') : new StandartPages();
+                case 'sliders':
+                    $data = $request->has("id") && !empty($request->input("id")) ? sliders($request->input("id"), 'id') : new Sliders();
             }
 
             if ($request->has("user_id") && !empty($request->input("user_id")))
                 $data->user_id = $request->input("user_id");
+
+            if ($request->has("setting_id") && !empty($request->input("setting_id")))
+                $data->setting_id = $request->input("setting_id");
+
+            if ($request->has("category_id") && !empty($request->input("category_id")))
+                $data->category_id = $request->input("category_id");
+
+            if ($request->has("order_number") && !empty($request->input("order_number")))
+                $data->order_number = $request->input("order_number")??1;
+
+            if ($request->has("status") && !empty($request->input("status")))
+                $data->status = $request->input("status")=='on'?true:false;
+
+            if ($request->has("image_or_video") && !empty($request->input("image_or_video")))
+                $data->image_or_video = image_upload($request->image_or_video,'images');
+
+            if ($request->has("type_of") && !empty($request->input("type_of")))
+                $data->type_of = $request->input("type_of")??'image';
+
+            if ($request->has("button_data") && !empty($request->input("button_data")))
+                $data->button_data = $request->input("button_data")??[];
 
             if ($request->has("az_name") && !empty($request->input("az_name"))) {
                 $name = [
@@ -74,6 +102,18 @@ class FunctionsController extends Controller
 
                 $logos = ['logo' => $logo, 'logo_white' => $logo_white];
                 $data->logos = $logos;
+            }
+
+            if ($request->has("images") && !empty($request->images)) {
+                $images = !empty($data->images) && count($data->images)>0 ? $data->images : [];
+
+                foreach($request->images as $image){
+                    $image = image_upload($image,'images');
+                    array_push($images,$image);
+                }
+
+                $images = array_values($images);
+                $data->images = $images;
             }
 
             if ($request->has("domain") && !empty($request->input("domain"))) {
@@ -132,6 +172,12 @@ class FunctionsController extends Controller
                 case 'settings':
                     $data = settings($request->input("id"));
                     break;
+                case 'blogs':
+                    $data = blogs($request->input("id"));
+                    break;
+                case 'standartpages':
+                    $data = standartpages($request->input("id"));
+                    break;
             }
 
             if (!empty($data) && isset($data->id)) {
@@ -142,6 +188,37 @@ class FunctionsController extends Controller
         } catch (\Exception $e) {
             return [$e->getMessage(), $e->getLine()];
         } finally {
+            dbdeactive();
+        }
+    }
+    public function delete_image(Request $request){
+        try{
+            $data = collect();
+            switch($request->input("routename")){
+                case 'blogs':
+                    $data = blogs($request->input("id"),'id');
+                case 'standartpages':
+                    $data = standartpages($request->input("id"),'id');
+            }
+
+            if(!empty($data) && isset($data->id)){
+                $images = $data->images ?? [];
+                $image = $request->input("image");
+                if(($key = array_search($image, $images)) !== false) {
+                    unset($images[$key]);
+                }
+
+                $images = array_values($images);
+                $data->images=$images;
+
+                $data->update();
+                return response()->json(['status'=>'success','message'=>"Silindi"]);
+            }else{
+                return response()->json(['status'=>'warning','message'=>"Məlumat tapılmadı"]);
+            }
+        }catch(\Exception $e){
+            return response()->json(['status'=>'error','message'=>$e->getMessage(),'line'=>$e->getLine()]);
+        } finally{
             dbdeactive();
         }
     }

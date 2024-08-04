@@ -131,38 +131,86 @@ if (!function_exists("translateWithFallback")) {
 }
 
 if (!function_exists('settings')) {
-    function settings($key = null,$type=null)
+    function settings($key = null, $type = null)
     {
-        $model = Settings::orderBy('id','DESC');
-        if(isset($key) && !empty($key)){
-            if($type=='domain')
-                $model = $model->where('domain',$key);
+        $model = Settings::orderBy('id', 'DESC');
+        if (isset($key) && !empty($key)) {
+            if ($type == 'domain')
+                $model = $model->where('domain', $key);
             else
-                $model = $model->where("id",$key);
+                $model = $model->where("id", $key);
 
             $model = $model->first();
-        }else{
+        } else {
             $model = $model->get();
         }
-        return Cache::rememberForever("settings" . $key.$type . Session::getId(), fn () => $model);
+        return Cache::rememberForever("settings" . $key . $type . Session::getId(), fn () => $model);
+    }
+}
+
+if (!function_exists('categories')) {
+    function categories($key = null, $type = null)
+    {
+        $model = Categories::orderBy('id', 'DESC');
+        if (isset($key) && !empty($key)) {
+            if ($type == 'setting_id')
+                $model = $model->where('setting_id', $key)->get();
+            else if ($type == 'slug')
+                $model = $model->where('slugs->az_slug', $key)->where('slugs->en_slug', $key)->where('slugs->ru_slug', $key)->first();
+            else if($type=='id')
+                $model = $model->where("id", $key)->first();
+        } else {
+            $model = $model->get();
+        }
+        return Cache::rememberForever("categories" . $key . $type, fn () => $model);
+    }
+}
+
+if (!function_exists('standartpages')) {
+    function standartpages($key = null, $type = null)
+    {
+        $model = StandartPages::orderBy('id', 'DESC');
+        if (isset($key) && !empty($key)) {
+            if ($type == 'setting_id')
+                $model = $model->where('setting_id', $key)->get();
+            else if ($type == 'slug')
+                $model = $model->where('slugs->az_slug', $key)->where('slugs->en_slug', $key)->where('slugs->ru_slug', $key)->first();
+            else if($type=='id')
+                $model = $model->where("id", $key)->first();
+        } else {
+            $model = $model->get();
+        }
+        return Cache::rememberForever("standartpages" . $key . $type, fn () => $model);
     }
 }
 
 if (!function_exists('blogs')) {
-    function blogs($key = null,$type=null)
+    function blogs($key = null, $type = null)
     {
-        $model = Blogs::orderBy('id','DESC');
-        if(isset($key) && !empty($key)){
-            if($type=='setting_id')
-                $model = $model->where('setting_id',$key)->get();
-            else if($type=='slug')
-                $model = $model->where("slugs->az_slug",$key)->orWhere("slugs->ru_slug",$key)->orWhere("slugs->en_slug",$key)->first();
+        $model = Blogs::orderBy('id', 'DESC');
+        if (isset($key) && !empty($key)) {
+            if ($type == 'setting_id')
+                $model = $model->where('setting_id', $key)->get();
+            else if ($type == 'slug')
+                $model = $model->where("slugs->az_slug", $key)->orWhere("slugs->ru_slug", $key)->orWhere("slugs->en_slug", $key)->first();
             else
-                $model = $model->where("id",$key)->first();
-
-        }else{
+                $model = $model->where("id", $key)->first();
+        } else {
             $model = $model->get();
         }
-        return Cache::rememberForever("blogs" . $key.$type . Session::getId(), fn () => $model);
+        return Cache::rememberForever("blogs" . $key . $type . Session::getId(), fn () => $model);
+    }
+}
+
+if (!function_exists('users')) {
+    function users($key = null)
+    {
+        $model = User::orderBy('id', 'DESC');
+        if (isset($key) && !empty($key)) {
+            $model = $model->where('id', $key)->first();
+        } else {
+            $model = $model->get();
+        }
+        return Cache::rememberForever("users" . $key, fn () => $model);
     }
 }

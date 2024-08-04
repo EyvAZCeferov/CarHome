@@ -1,0 +1,31 @@
+<th class="text-center">
+    @switch($value)
+        @case('namejson')
+            Ad
+        @break
+        @case('descriptionjson')
+            Açıqlama
+        @break
+        @case('logojson')
+            Logo
+        @break
+        @case('imagejson')
+            Şəkillər
+        @break
+        @case('addressjson')
+            Ünvan
+        @break
+        @case('status')
+            Status
+        @break
+        @case('user_id')
+            İcra etdi
+        @break
+        @case('domain')
+            Domen
+        @break
+        @case('setting')
+            Vebsayt
+        @break
+    @endswitch
+</th>

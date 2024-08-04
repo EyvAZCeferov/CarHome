@@ -40,6 +40,39 @@ class RoutesController extends Controller
                     $title = 'Bloqlar';
                     $routename = 'blogs';
                     $data = blogs();
+                    $fields = [
+                        'imagejson',
+                        'namejson',
+                        'status',
+                        'setting',
+                        'user_id',
+                    ];
+                    break;
+                case 'standartpages':
+                    $pagename = 'standartpages';
+                    $title = 'Standart səhifələr';
+                    $routename = 'standartpages';
+                    $data = standartpages();
+                    $fields = [
+                        'imagejson',
+                        'namejson',
+                        'status',
+                        'setting',
+                        'user_id',
+                    ];
+                    break;
+                case 'sliders':
+                    $pagename = 'sliders';
+                    $title = 'Slayderlər';
+                    $routename = 'sliders';
+                    $data = sliders();
+                    $fields = [
+                        'image_or_video',
+                        'namejson',
+                        'status',
+                        'setting',
+                        'user_id',
+                    ];
                     break;
             }
 
@@ -99,6 +132,37 @@ class RoutesController extends Controller
                         'status',
                         'setting_id',
                         'category_id',
+                    ];
+                    break;
+                case 'standartpages':
+                        $pagename = 'standartpages';
+                        $title = 'Standart səhifə' . ($request->has("id") && !empty($request->input("id")) ? ' yenilə' : ' əlavə et');
+                        $routename = 'standartpages';
+                        $data = $request->has('id') && !empty($request->input("id")) ? standartpages($request->input("id"), 'id') : null;
+                        $fields = [
+                            'namejson',
+                            'descjson',
+                            'imagesjson',
+                            'order_number',
+                            'status',
+                            'setting_id',
+                        ];
+                        break;
+
+                case 'sliders':
+                    $pagename = 'sliders';
+                    $title = 'Slayder' . ($request->has("id") && !empty($request->input("id")) ? ' yenilə' : ' əlavə et');
+                    $routename = 'sliders';
+                    $data = $request->has('id') && !empty($request->input("id")) ? sliders($request->input("id"), 'id') : null;
+                    $fields = [
+                        'namejson',
+                        'descjson',
+                        'image_or_video',
+                        'type_of_slider_image_or_video',
+                        'button_data',
+                        'order_number',
+                        'status',
+                        'setting_id',
                     ];
                     break;
             }
