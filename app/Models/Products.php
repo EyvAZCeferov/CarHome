@@ -25,6 +25,7 @@ class Products extends Model
     ];
     protected $casts = [
         'name' => 'json',
+        'slugs'=>"json",
         'description' => "json",
         'images' => "json",
         'prices' => "json",

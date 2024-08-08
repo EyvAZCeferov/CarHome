@@ -104,6 +104,7 @@
 
                             @include('backend.parts.language_fields', [
                                 'name' => in_array('namejson', $pageparams['fields']),
+                                'slug' => in_array('slugjson', $pageparams['fields']),
                                 'description' => in_array('descjson', $pageparams['fields']),
                                 'address' => in_array('addressjson', $pageparams['fields']),
                                 'data' => isset($data) && !empty($data) ? $data : null,
@@ -267,6 +268,14 @@
                                         'required' => false,
                                     ])
                                 @endif
+                                @if (in_array('services_id', $pageparams['fields']))
+                                    @include('backend.pages.parts.services', [
+                                        'collect' => services(null, null),
+                                        'data' => $data->services ?? null,
+                                        'elem_id' => $data->id ?? null,
+                                        'label' => 'Xidmətlər',
+                                    ])
+                                @endif
 
                                 @if (in_array('langsjson', $pageparams['fields']))
                                     @include('backend.pages.parts.langjson', [
@@ -277,14 +286,9 @@
                             </div>
                             <br />
 
-                            @if (in_array('services_id', $pageparams['fields']))
-                                @include('backend.pages.parts.services', [
-                                    'data' => $data->services ?? null,
-                                    'label' => 'Xidmətlər',
-                                ])
-                            @endif
 
-                            <br/>
+
+                            <br />
 
                             <button class="btn btn-primary btn-block">Saxla</button>
 

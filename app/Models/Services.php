@@ -25,6 +25,7 @@ class Services extends Model
     ];
     protected $casts = [
         'name' => 'json',
+        'slugs'=>"json",
         'description' => "json",
         'images' => "json",
         'additional_data' => "json",

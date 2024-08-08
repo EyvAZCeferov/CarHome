@@ -341,3 +341,20 @@ if (!function_exists('users')) {
         return Cache::rememberForever("users" . $key, fn () => $model);
     }
 }
+
+if (!function_exists("product_has_service")) {
+    function product_has_service($service_id = null, $product_id = null)
+    {
+        $model = ProductServices::orderBy('id', 'DESC');
+        if (isset($service_id) && !empty($service_id)) {
+            $model = $model->where('service_id', $service_id);
+        }
+
+        if (isset($product_id) && !empty($product_id)) {
+            $model = $model->where('product_id', $product_id);
+        }
+
+        $model = $model->first();
+        return Cache::rememberForever("product_has_service" . $service_id . $product_id, fn () => $model);
+    }
+}

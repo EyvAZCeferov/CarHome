@@ -23,6 +23,7 @@ class Teams extends Model
     ];
     protected $casts = [
         'name' => 'json',
+        'slugs'=>"json",
         'description' => "json",
         'additional_data' => "json",
         'status' => 'boolean',

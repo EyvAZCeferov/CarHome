@@ -1,5 +1,6 @@
 @if (
     (isset($name) && $name == true) ||
+        (isset($slug) && $slug == true) ||
         (isset($address) && $address == true) ||
         (isset($description) && $description == true))
     <nav>
@@ -25,9 +26,24 @@
                             <label for="">Ad <span
                                     class="badge badge-info">{{ strtoupper($localeCode) }}</span></label>
                             <input type="text"
+                                id="{{ $localeCode }}_name"
                                 value="{{ old($localeCode . '_name', isset($data) && !empty($data) && isset($data->name[$localeCode . '_name']) && !empty($data->name[$localeCode . '_name']) ? $data->name[$localeCode . '_name'] : null) }}"
                                 name="{{ $localeCode }}_name"
+                                onkeyup="nameandsetslug('{{ $localeCode }}')"
                                 class="form-control {{ $errors->first($localeCode . '_name') ? 'is-invalid' : '' }}">
+                        </div>
+                    </div>
+                @endif
+                @if (isset($slug) && $slug == true)
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">Url <span
+                                    class="badge badge-info">{{ strtoupper($localeCode) }}</span></label>
+                            <input type="text"
+                                id="{{ $localeCode }}_slug"
+                                value="{{ old($localeCode . '_slug', isset($data) && !empty($data) && isset($data->slug[$localeCode . '_slug']) && !empty($data->slug[$localeCode . '_slug']) ? $data->slug[$localeCode . '_slug'] : null) }}"
+                                name="{{ $localeCode }}_slug"
+                                class="form-control {{ $errors->first($localeCode . '_slug') ? 'is-invalid' : '' }}">
                         </div>
                     </div>
                 @endif
@@ -58,3 +74,23 @@
         </div>
     @endforeach
 </div>
+@push('js')
+    <script >
+        function nameandsetslug(locale){
+            const nameInput = document.getElementById(`${locale}_name`);
+            const slugInput = document.getElementById(`${locale}_slug`);
+            const slug = nameInput.value.trim()
+                .toLowerCase()
+                .replace(/[^a-z0-9\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-');
+            slugInput.value = slug;
+        }
+
+        window.addEventListener('load',function(){
+            @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                nameandsetslug('{{ $localeCode }}');
+            @endforeach
+        });
+    </script>
+@endpush

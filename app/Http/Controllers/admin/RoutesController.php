@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class RoutesController extends Controller
 {
@@ -229,6 +230,7 @@ class RoutesController extends Controller
                     $data = $request->has('id') && !empty($request->input("id")) ? blogs($request->input("id"), 'id') : null;
                     $fields = [
                         'namejson',
+                        'slugjson',
                         'descjson',
                         'imagesjson',
                         'order_number',
@@ -244,6 +246,7 @@ class RoutesController extends Controller
                     $data = $request->has('id') && !empty($request->input("id")) ? standartpages($request->input("id"), 'id') : null;
                     $fields = [
                         'namejson',
+                        'slugjson',
                         'descjson',
                         'imagesjson',
                         'order_number',
@@ -298,6 +301,7 @@ class RoutesController extends Controller
                     $data = $request->has('id') && !empty($request->input("id")) ? categories($request->input("id"), 'id') : null;
                     $fields = [
                         'namejson',
+                        'slugjson',
                         'descjson',
                         'imagesjson',
                         'order_number',
@@ -313,6 +317,7 @@ class RoutesController extends Controller
                     $data = $request->has('id') && !empty($request->input("id")) ? teams($request->input("id"), 'id') : null;
                     $fields = [
                         'namejson',
+                        'slugjson',
                         'descjson',
                         'image',
                         'order_number',
@@ -353,6 +358,7 @@ class RoutesController extends Controller
                     $data = $request->has('id') && !empty($request->input("id")) ? services($request->input("id"), 'id') : null;
                     $fields = [
                         'namejson',
+                        'slugjson',
                         'descjson',
                         'imagesjson',
                         'video',
@@ -369,6 +375,7 @@ class RoutesController extends Controller
                     $data = $request->has('id') && !empty($request->input("id")) ? products($request->input("id"), 'id') : null;
                     $fields = [
                         'namejson',
+                        'slugjson',
                         'descjson',
                         'imagesjson',
                         'pricejson',
@@ -389,6 +396,71 @@ class RoutesController extends Controller
             ];
             return view("backend.pages.create_edit", compact('data', 'pageparams'));
         } catch (\Exception $e) {
+            return [$e->getMessage(), $e->getLine()];
+        }
+    }
+    public function frontindex(Request $request){
+        try {
+            $page = $request->input("page") ?? 'welcome';
+            $pagename = '';
+            $title = '';
+            $routename = '';
+            $data = null;
+            $pageparameters=[];
+
+            if(!Session::has("setting_id") || empty(Session::get("setting_id"))){
+                $host = $request->getHost();
+                $all = settings();
+
+                if (!empty($all) && count($all) > 0) {
+                    foreach ($all as $set) {
+                        if (strpos($host, $set->domain) !== false) {
+                            Session::put('domain', $set->domain);
+                            Session::put('setting_id', $set->domain);
+                        }
+                    }
+                }
+            }
+
+            switch ($page) {
+                case 'welcome':
+                    $pagename = 'welcome';
+                    $title = trans("additional.routename.welcome");
+                break;
+                case 'standartpage':
+                    $data = standartpages($request->slug,'slug');
+                    $pagename = 'standartpage';
+                    $title = $data->name[app()->getLocale().'_name'];
+                break;
+                case 'blogs':
+                    $data = blogs($setting->id,'setting_id');
+                    $pagename = 'blogs';
+                    $title = trans("additional.routename.blogs");
+                break;
+                case 'blog':
+                    $data = blogs($request->slug,'slug');
+                    $pagename = 'blog';
+                    $title = $data->name[app()->getLocale().'_name'];
+                break;
+                case 'products':
+                    $data = products($setting->id,'setting_id');
+                    $pagename = 'products';
+                    $title = trans("additional.routename.products");
+                break;
+                case 'product':
+                    $data = products($request->slug,'slug');
+                    $pagename = 'product';
+                    $title = $data->name[app()->getLocale().'_name'];
+                break;
+                case 'service':
+                    $data = services($request->slug,'slug');
+                    $pagename = 'service';
+                    $title = $data->name[app()->getLocale().'_name'];
+                break;
+            }
+
+            return view('frontend.'.$pagename,compact("page",'routename','title','data','pageparameters'));
+        }catch (\Exception $e) {
             return [$e->getMessage(), $e->getLine()];
         }
     }

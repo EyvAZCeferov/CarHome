@@ -11,6 +11,8 @@ use App\Models\Sliders;
 use App\Models\Blogs;
 use App\Models\Categories;
 use App\Models\Faqs;
+use App\Models\Products;
+use App\Models\ProductServices;
 use App\Models\Services;
 use App\Models\StandartPages;
 use App\Models\Teams;
@@ -27,27 +29,40 @@ class FunctionsController extends Controller
             switch ($page) {
                 case 'settings':
                     $data = $request->has("id") && !empty($request->input("id")) ? settings($request->input("id"), 'id') : new Settings();
+                    break;
                 case 'blogs':
                     $data = $request->has("id") && !empty($request->input("id")) ? blogs($request->input("id"), 'id') : new Blogs();
+                    break;
                 case 'standartpages':
                     $data = $request->has("id") && !empty($request->input("id")) ? standartpages($request->input("id"), 'id') : new StandartPages();
+                    break;
                 case 'sliders':
                     $data = $request->has("id") && !empty($request->input("id")) ? sliders($request->input("id"), 'id') : new Sliders();
+                    break;
                 case 'faqs':
                     $data = $request->has("id") && !empty($request->input("id")) ? faqs($request->input("id"), 'id') : new Faqs();
+                    break;
                 case 'managers':
                     $data = $request->has("id") && !empty($request->input("id")) ? users($request->input("id"), 'id') : new User();
+                    break;
                 case 'categories':
                     $data = $request->has("id") && !empty($request->input("id")) ? categories($request->input("id"), 'id') : new Categories();
+                    break;
                 case 'teams':
                     $data = $request->has("id") && !empty($request->input("id")) ? teams($request->input("id"), 'id') : new Teams();
+                    break;
                 case 'whychooseus':
                     $data = $request->has("id") && !empty($request->input("id")) ? whychooseus($request->input("id"), 'id') : new WhyChooseUs();
+                    break;
                 case 'services':
                     $data = $request->has("id") && !empty($request->input("id")) ? services($request->input("id"), 'id') : new Services();
+                    break;
+                case 'products':
+                    $data = $request->has("id") && !empty($request->input("id")) ? products($request->input("id"), 'id') : new Products();
+                    break;
             }
 
-            if (($request->has("user_id") && !empty($request->input("user_id"))) && $page!='managers')
+            if (($request->has("user_id") && !empty($request->input("user_id"))) && $page != 'managers')
                 $data->user_id = $request->input("user_id");
 
             if ($request->has("setting_id") && !empty($request->input("setting_id")))
@@ -60,22 +75,25 @@ class FunctionsController extends Controller
                 $data->top_service_id = $request->input("top_service_id");
 
             if ($request->has("order_number") && !empty($request->input("order_number")))
-                $data->order_number = $request->input("order_number")??1;
+                $data->order_number = $request->input("order_number") ?? 1;
 
             if ($request->has("status") && !empty($request->input("status")))
-                $data->status = $request->input("status")=='on'?true:false;
+                $data->status = $request->input("status") == 'on' ? true : false;
+
+            if ($request->has("prices") && !empty($request->input("prices")))
+                $data->prices = $request->input("prices") ?? ['price' => 0, 'endirim_price' => 0];
 
             if ($request->hasFile("image_or_video") && !empty($request->image_or_video))
-                $data->image_or_video = image_upload($request->image_or_video,'images');
+                $data->image_or_video = image_upload($request->image_or_video, 'images');
 
             if ($request->hasFile("image") && !empty($request->image))
-                $data->image = image_upload($request->image,'images');
+                $data->image = image_upload($request->image, 'images');
 
             if ($request->hasFile("video") && !empty($request->video))
-                $data->video = image_upload($request->video,'images');
+                $data->video = image_upload($request->video, 'images');
 
             if ($request->has("type_of") && !empty($request->input("type_of")))
-                $data->type_of = $request->input("type_of")??'image';
+                $data->type_of = $request->input("type_of") ?? 'image';
 
             if ($request->has("name") && !empty($request->input("name")))
                 $data->name = $request->input("name");
@@ -90,7 +108,7 @@ class FunctionsController extends Controller
                 $data->top_category_id = bcrypt($request->input("top_category_id"));
 
             if ($request->has("button_data") && !empty($request->input("button_data")))
-                $data->button_data = $request->input("button_data")??[];
+                $data->button_data = $request->input("button_data") ?? [];
 
             if ($request->has("az_name") && !empty($request->input("az_name"))) {
                 $name = [
@@ -121,9 +139,9 @@ class FunctionsController extends Controller
 
             if ($request->has("az_slug") && !empty($request->input("az_slug"))) {
                 $slugs = [
-                    'az_slug' => Str::slug(trim($name['az_name'])),
-                    'ru_slug' => Str::slug(trim($name['ru_name'])),
-                    'en_slug' => Str::slug(trim($name['en_name'])),
+                    'az_slug' => $request->input("az_slug") ?? Str::slug(trim($name['az_name'])),
+                    'ru_slug' => $request->input("ru_slug") ?? Str::slug(trim($name['ru_name'])),
+                    'en_slug' => $request->input("en_slug") ?? Str::slug(trim($name['en_name'])),
                 ];
                 $data->slugs = $slugs;
             }
@@ -145,11 +163,11 @@ class FunctionsController extends Controller
             }
 
             if ($request->has("images") && !empty($request->images)) {
-                $images = !empty($data->images) && count($data->images)>0 ? $data->images : [];
+                $images = !empty($data->images) && count($data->images) > 0 ? $data->images : [];
 
-                foreach($request->images as $image){
-                    $image = image_upload($image,'images');
-                    array_push($images,$image);
+                foreach ($request->images as $image) {
+                    $image = image_upload($image, 'images');
+                    array_push($images, $image);
                 }
 
                 $images = array_values($images);
@@ -189,6 +207,26 @@ class FunctionsController extends Controller
 
             if ($request->has("langs") && !empty($request->input("langs"))) {
                 $data->langs = $request->input("langs");
+            }
+
+            if ($request->has("services") && !empty($request->input("services"))) {
+                $prservs = null;
+                if (!empty($data) && isset($data->id))
+                    $prservs = product_has_service(null, $data->id);
+
+                if (!empty($prservs) && count($prservs) > 0) {
+                    foreach ($prservs as $prs) {
+                        $prs->delete();
+                    }
+                }
+
+                foreach ($request->services as $serv) {
+                    $product_has_service = new ProductServices();
+                    $product_has_service->product_id = $data->id;
+                    $product_has_service->service_id = $serv;
+                    $product_has_service->user_id = $request->input("user_id") ?? auth()->id();
+                    $product_has_service->save();
+                }
             }
 
             if ($request->has("id") && !empty($request->input("id")))
@@ -239,6 +277,9 @@ class FunctionsController extends Controller
                 case 'services':
                     $data = services($request->input("id"));
                     break;
+                case 'products':
+                    $data = products($request->input("id"));
+                    break;
             }
 
             if (!empty($data) && isset($data->id)) {
@@ -252,40 +293,43 @@ class FunctionsController extends Controller
             dbdeactive();
         }
     }
-    public function delete_image(Request $request){
-        try{
+    public function delete_image(Request $request)
+    {
+        try {
             $data = collect();
-            switch($request->input("routename")){
+            switch ($request->input("routename")) {
                 case 'blogs':
-                    $data = blogs($request->input("id"),'id');
+                    $data = blogs($request->input("id"), 'id');
                 case 'standartpages':
-                    $data = standartpages($request->input("id"),'id');
+                    $data = standartpages($request->input("id"), 'id');
                 case 'categories':
-                    $data = categories($request->input("id"),'id');
+                    $data = categories($request->input("id"), 'id');
                 case 'whychooseus':
-                    $data = whychooseus($request->input("id"),'id');
+                    $data = whychooseus($request->input("id"), 'id');
                 case 'services':
-                    $data = services($request->input("id"),'id');
+                    $data = services($request->input("id"), 'id');
+                case 'products':
+                    $data = products($request->input("id"), 'id');
             }
 
-            if(!empty($data) && isset($data->id)){
+            if (!empty($data) && isset($data->id)) {
                 $images = $data->images ?? [];
                 $image = $request->input("image");
-                if(($key = array_search($image, $images)) !== false) {
+                if (($key = array_search($image, $images)) !== false) {
                     unset($images[$key]);
                 }
 
                 $images = array_values($images);
-                $data->images=$images;
+                $data->images = $images;
 
                 $data->update();
-                return response()->json(['status'=>'success','message'=>"Silindi"]);
-            }else{
-                return response()->json(['status'=>'warning','message'=>"Məlumat tapılmadı"]);
+                return response()->json(['status' => 'success', 'message' => "Silindi"]);
+            } else {
+                return response()->json(['status' => 'warning', 'message' => "Məlumat tapılmadı"]);
             }
-        }catch(\Exception $e){
-            return response()->json(['status'=>'error','message'=>$e->getMessage(),'line'=>$e->getLine()]);
-        } finally{
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'error', 'message' => $e->getMessage(), 'line' => $e->getLine()]);
+        } finally {
             dbdeactive();
         }
     }

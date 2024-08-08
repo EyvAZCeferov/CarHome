@@ -31,5 +31,5 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [
     'localeSessionRedirect', 'localizationRedirect', 'localeViewPath'
 ]], function () {
 
-    Route::get('/', [RoutesController::class, 'index'])->name('welcome');
+    Route::get('/', [RoutesController::class, 'frontindex'])->name('frontend.index');
 });
