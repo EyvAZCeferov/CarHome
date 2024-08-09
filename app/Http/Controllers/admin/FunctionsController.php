@@ -11,6 +11,7 @@ use App\Models\Sliders;
 use App\Models\Blogs;
 use App\Models\Categories;
 use App\Models\Faqs;
+use App\Models\Partners;
 use App\Models\Products;
 use App\Models\ProductServices;
 use App\Models\Services;
@@ -59,6 +60,9 @@ class FunctionsController extends Controller
                     break;
                 case 'products':
                     $data = $request->has("id") && !empty($request->input("id")) ? products($request->input("id"), 'id') : new Products();
+                    break;
+                case 'partners':
+                    $data = $request->has("id") && !empty($request->input("id")) ? partners($request->input("id"), 'id') : new Partners();
                     break;
             }
 
@@ -279,6 +283,9 @@ class FunctionsController extends Controller
                     break;
                 case 'products':
                     $data = products($request->input("id"));
+                    break;
+                case 'partners':
+                    $data = partners($request->input("id"));
                     break;
             }
 

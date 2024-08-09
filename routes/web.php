@@ -32,4 +32,5 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => [
 ]], function () {
 
     Route::get('/', [RoutesController::class, 'frontindex'])->name('frontend.index');
+    Route::get('/{slug}', [RoutesController::class, 'frontshow'])->name('frontend.show');
 });

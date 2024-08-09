@@ -44,6 +44,11 @@
                         class="nav-label">Kateqoriyalar</span></a>
             </li>
 
+            <li class="{{ \Illuminate\Support\Str::contains(url()->full(), 'partners') ? 'active' : '' }}">
+                <a href="{{ route('admin.index', ['page' => 'partners']) }}"><i class="fa fa-hands-helping"></i> <span
+                        class="nav-label">Partnyorlar</span></a>
+            </li>
+
             <li class="{{ \Illuminate\Support\Str::contains(url()->full(), 'teams') ? 'active' : '' }}">
                 <a href="{{ route('admin.index', ['page' => 'teams']) }}"><i class="fa fa-users"></i> <span
                         class="nav-label">Komanda</span></a>

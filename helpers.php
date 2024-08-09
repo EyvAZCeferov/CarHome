@@ -5,6 +5,7 @@ use App\Models\Blogs;
 use App\Models\Categories;
 use App\Models\ContactUs;
 use App\Models\Faqs;
+use App\Models\Partners;
 use App\Models\Products;
 use App\Models\ProductServices;
 use App\Models\Services;
@@ -170,10 +171,10 @@ if (!function_exists('categories')) {
 if (!function_exists('standartpages')) {
     function standartpages($key = null, $type = null)
     {
-        $model = StandartPages::orderBy('id', 'DESC');
+        $model = StandartPages::orderBy('order_number', 'ASC');
         if (isset($key) && !empty($key)) {
             if ($type == 'setting_id')
-                $model = $model->where('setting_id', $key)->get();
+                $model = $model->where('setting_id', $key)->where("status",true)->get();
             else if ($type == 'slug')
                 $model = $model->where('slugs->az_slug', $key)->where('slugs->en_slug', $key)->where('slugs->ru_slug', $key)->first();
             else
@@ -188,10 +189,10 @@ if (!function_exists('standartpages')) {
 if (!function_exists('sliders')) {
     function sliders($key = null, $type = null)
     {
-        $model = Sliders::orderBy('id', 'DESC');
+        $model = Sliders::orderBy('order_number', 'ASC');
         if (isset($key) && !empty($key)) {
             if ($type == 'setting_id')
-                $model = $model->where('setting_id', $key)->get();
+                $model = $model->where('setting_id', $key)->where('status',true)->get();
             else
                 $model = $model->where("id", $key)->first();
         } else {
@@ -238,10 +239,10 @@ if (!function_exists('blogs')) {
 if (!function_exists('teams')) {
     function teams($key = null, $type = null)
     {
-        $model = Teams::orderBy('id', 'DESC');
+        $model = Teams::orderBy('order_number', 'ASC');
         if (isset($key) && !empty($key)) {
             if ($type == 'setting_id')
-                $model = $model->where('setting_id', $key)->get();
+                $model = $model->where('setting_id', $key)->where('status',true)->get();
             else if ($type == 'slug')
                 $model = $model->where('slugs->az_slug', $key)->where('slugs->en_slug', $key)->where('slugs->ru_slug', $key)->first();
             else
@@ -256,10 +257,10 @@ if (!function_exists('teams')) {
 if (!function_exists('whychooseus')) {
     function whychooseus($key = null, $type = null)
     {
-        $model = WhyChooseUs::orderBy('id', 'DESC');
+        $model = WhyChooseUs::orderBy('order_number', 'ASC');
         if (isset($key) && !empty($key)) {
             if ($type == 'setting_id')
-                $model = $model->where('setting_id', $key)->get();
+                $model = $model->where('setting_id', $key)->where('status',true)->get();
             else if ($type == 'slug')
                 $model = $model->where('slugs->az_slug', $key)->where('slugs->en_slug', $key)->where('slugs->ru_slug', $key)->first();
             else
@@ -292,10 +293,10 @@ if (!function_exists('contactus')) {
 if (!function_exists('services')) {
     function services($key = null, $type = null)
     {
-        $model = Services::orderBy('id', 'DESC');
+        $model = Services::orderBy('order_number', 'ASC');
         if (isset($key) && !empty($key)) {
             if ($type == 'setting_id')
-                $model = $model->where('setting_id', $key)->get();
+                $model = $model->where('setting_id', $key)->where('status',true)->get();
             else if ($type == 'top_service_id')
                 $model = $model->where('top_service_id', $key)->get();
             else if ($type == 'slug')
@@ -356,5 +357,23 @@ if (!function_exists("product_has_service")) {
 
         $model = $model->first();
         return Cache::rememberForever("product_has_service" . $service_id . $product_id, fn () => $model);
+    }
+}
+
+if (!function_exists('partners')) {
+    function partners($key = null, $type = null)
+    {
+        $model = Partners::orderBy('order_number', 'ASC');
+        if (isset($key) && !empty($key)) {
+            if ($type == 'setting_id')
+                $model = $model->where('setting_id', $key)->where('status',true)->get();
+            else if ($type == 'slug')
+                $model = $model->where('slugs->az_slug', $key)->where('slugs->en_slug', $key)->where('slugs->ru_slug', $key)->first();
+            else
+                $model = $model->where("id", $key)->first();
+        } else {
+            $model = $model->get();
+        }
+        return Cache::rememberForever("partners" . $key . $type, fn () => $model);
     }
 }

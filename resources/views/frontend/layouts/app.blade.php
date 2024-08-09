@@ -22,8 +22,7 @@
 </head>
 
 <body
-    @if ($setting->domain == 'realestate.globalmart.az') class="home page-template page-template-template page-template-template-homepage page-template-templatetemplate-homepage-php page page-id-16519 houzez-theme houzez-footer-position transparent-yes houzez-header-elementor elementor-default elementor-kit-16177 elementor-page elementor-page-16519"
-    @else @endif>
+    @if ($setting->domain == 'realestate.globalmart.az') class="home page-template page-template-template page-template-template-homepage page-template-templatetemplate-homepage-php page page-id-16519 houzez-theme houzez-footer-position transparent-yes houzez-header-elementor elementor-default elementor-kit-16177 elementor-page elementor-page-16519" @endif>
 
     @include('frontend.layouts.header', ['setting' => $setting])
 

@@ -178,6 +178,19 @@ class RoutesController extends Controller
                         'setting',
                     ];
                     break;
+                case 'partners':
+                    $pagename = 'partners';
+                    $title = 'Partnyorlar';
+                    $routename = 'partners';
+                    $data = partners();
+                    $fields = [
+                        'image',
+                        'namejson',
+                        'status',
+                        'user_id',
+                        'setting',
+                    ];
+                    break;
             }
 
             $pageparams = [
@@ -386,6 +399,20 @@ class RoutesController extends Controller
                         'setting_id',
                     ];
                     break;
+                case 'partners':
+                    $pagename = 'partners';
+                    $title = 'Partnyor' . ($request->has("id") && !empty($request->input("id")) ? ' yenilə' : ' əlavə et');
+                    $routename = 'partners';
+                    $data = $request->has('id') && !empty($request->input("id")) ? partners($request->input("id"), 'id') : null;
+                    $fields = [
+                        'namejson',
+                        'slugjson',
+                        'image',
+                        'order_number',
+                        'status',
+                        'setting_id',
+                    ];
+                    break;
             }
 
             $pageparams = [
@@ -433,7 +460,7 @@ class RoutesController extends Controller
                     $title = $data->name[app()->getLocale().'_name'];
                 break;
                 case 'blogs':
-                    $data = blogs($setting->id,'setting_id');
+                    $data = blogs($request->slug,'setting_id');
                     $pagename = 'blogs';
                     $title = trans("additional.routename.blogs");
                 break;
@@ -443,7 +470,7 @@ class RoutesController extends Controller
                     $title = $data->name[app()->getLocale().'_name'];
                 break;
                 case 'products':
-                    $data = products($setting->id,'setting_id');
+                    $data = products($request->slug,'setting_id');
                     $pagename = 'products';
                     $title = trans("additional.routename.products");
                 break;
@@ -455,6 +482,11 @@ class RoutesController extends Controller
                 case 'service':
                     $data = services($request->slug,'slug');
                     $pagename = 'service';
+                    $title = $data->name[app()->getLocale().'_name'];
+                break;
+                case 'partner':
+                    $data = partners($request->slug,'slug');
+                    $pagename = 'partner';
                     $title = $data->name[app()->getLocale().'_name'];
                 break;
             }
