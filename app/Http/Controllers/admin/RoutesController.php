@@ -204,7 +204,6 @@ class RoutesController extends Controller
             return [$e->getMessage(), $e->getLine()];
         }
     }
-
     public function create_edit(Request $request)
     {
         try {
@@ -494,6 +493,27 @@ class RoutesController extends Controller
             return view('frontend.'.$pagename,compact("page",'routename','title','data','pageparameters'));
         }catch (\Exception $e) {
             return [$e->getMessage(), $e->getLine()];
+        }
+    }
+    public function frontshow(Request $request,$slug){
+        try{
+            $page = $request->input("page")?? 'welcome';
+            $title = '';
+            $routename = '';
+            $data = null;
+            $setting=settings(session()->get("setting_id"));
+
+            switch ($page) {
+                case 'teams':
+                    $routename = 'teams';
+                    $data=teams($slug,'slug');
+                    $title = trans("additional.routename.team").' '.$data->name[app()->getLocale().'_name'];
+                break;
+            }
+
+            return view('frontend.showpage',compact("page",'routename','title','data','setting'));
+        }catch(\Exception $e){
+            return response()->json(['status'=>'error','message'=>$e->getMessage(),'line'=>$e->getLine()]);
         }
     }
 }

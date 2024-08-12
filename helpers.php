@@ -221,10 +221,10 @@ if (!function_exists('faqs')) {
 if (!function_exists('blogs')) {
     function blogs($key = null, $type = null)
     {
-        $model = Blogs::orderBy('id', 'DESC');
+        $model = Blogs::orderBy('order_number', 'ASC');
         if (isset($key) && !empty($key)) {
             if ($type == 'setting_id')
-                $model = $model->where('setting_id', $key)->get();
+                $model = $model->where('setting_id', $key)->where('status',true)->get();
             else if ($type == 'slug')
                 $model = $model->where("slugs->az_slug", $key)->orWhere("slugs->ru_slug", $key)->orWhere("slugs->en_slug", $key)->first();
             else
@@ -244,7 +244,7 @@ if (!function_exists('teams')) {
             if ($type == 'setting_id')
                 $model = $model->where('setting_id', $key)->where('status',true)->get();
             else if ($type == 'slug')
-                $model = $model->where('slugs->az_slug', $key)->where('slugs->en_slug', $key)->where('slugs->ru_slug', $key)->first();
+                $model = $model->where('slugs->az_slug', $key)->orWhere('slugs->en_slug', $key)->orWhere('slugs->ru_slug', $key)->first();
             else
                 $model = $model->where("id", $key)->first();
         } else {

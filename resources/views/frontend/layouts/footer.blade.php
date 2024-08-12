@@ -6,16 +6,15 @@
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div id="houzez_about_widget-3" class="footer-widget widget widget-wrap widget-about-site">
                             <div class="widget-header">
-                                <h3 class="widget-title">@lang('additional.fields.aboutsite')</h3>
+                                <h3 class="widget-title text-white">@lang('additional.fields.aboutsite')</h3>
                             </div>
                             <div class="widget-body">
-                                <div class="widget-content">
+                                <div class="widget-content text-white">
                                     @if (
-                                        !empty(setting(session()->get('setting_id'))->description) &&
-                                            isset(setting(session()->get('setting_id'))->description[app()->getLocale() . '_name']) &&
-                                            !empty(setting(session()->get('setting_id'))->description[app()->getLocale() . '_name']))
-                                        <p>{{ setting(session()->get('setting_id'))->description[app()->getLocale() . '_name'] }}
-                                        </p>
+                                        !empty(settings(session()->get('setting_id'))->description) &&
+                                            isset(settings(session()->get('setting_id'))->description[app()->getLocale() . '_description']) &&
+                                            !empty(settings(session()->get('setting_id'))->description[app()->getLocale() . '_description']))
+                                        <p>{!! settings(session()->get('setting_id'))->description[app()->getLocale() . '_description'] !!}</p>
                                     @endif
                                 </div>
                                 @if (
@@ -23,7 +22,7 @@
                                         count(standartpages(session()->get('setting_id'), 'setting_id')) > 0)
                                     <div class="widget-read-more">
                                         <a
-                                            href="{{ route('frontend.show', ['slug' => standartpages(session()->get('setting_id'), 'setting_id')->slugs[app()->getLocale() . '_slug'], 'page' => 'standartpages']) }}">@lang('additional.fields.readmore')
+                                            href="{{ route('frontend.show', ['slug' => standartpages(session()->get('setting_id'), 'setting_id')[0]->slugs[app()->getLocale() . '_slug'], 'page' => 'standartpages']) }}">@lang('additional.fields.readmore')
                                         </a>
                                     </div>
                                 @endif
@@ -33,34 +32,34 @@
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div id="houzez_contact-7" class="footer-widget widget widget-wrap widget-contact-us">
                             <div class="widget-header">
-                                <h3 class="widget-title">@lang('additional.fields.contactus')</h3>
+                                <h3 class="widget-title text-white">@lang('additional.fields.contactus')</h3>
                             </div>
                             <div class="widget-body">
                                 <div class="widget-content">
                                     <p></p>
-                                    <ul class="list-unstyled contact-list">
+                                    <ul class="list-unstyled contact-list text-white">
                                         @if (
-                                            !empty(setting(session()->get('setting_id'), 'setting_id')->address) &&
-                                                isset(setting(session()->get('setting_id'), 'setting_id')->address[app()->getLocale() . '_address']) &&
-                                                !empty(setting(session()->get('setting_id'), 'setting_id')->address[app()->getLocale() . '_address']))
+                                            !empty(settings(session()->get('setting_id'), 'setting_id')->address) &&
+                                                isset(settings(session()->get('setting_id'), 'setting_id')->address[app()->getLocale() . '_address']) &&
+                                                !empty(settings(session()->get('setting_id'), 'setting_id')->address[app()->getLocale() . '_address']))
                                             <li><i class="houzez-icon icon-pin mr-1"></i>
-                                                {{ setting(session()->get('setting_id'), 'setting_id')->address[app()->getLocale() . '_address'] }}
+                                                {{ settings(session()->get('setting_id'), 'setting_id')->address[app()->getLocale() . '_address'] }}
                                             </li>
                                         @endif
                                         @if (
-                                            !empty(setting(session()->get('setting_id'), 'setting_id')->social_media) &&
-                                                isset(setting(session()->get('setting_id'), 'setting_id')->social_media['phone']) &&
-                                                !empty(setting(session()->get('setting_id'), 'setting_id')->social_media['phone']))
+                                            !empty(settings(session()->get('setting_id'), 'setting_id')->social_media) &&
+                                                isset(settings(session()->get('setting_id'), 'setting_id')->social_media['phone']) &&
+                                                !empty(settings(session()->get('setting_id'), 'setting_id')->social_media['phone']))
                                             <li><i class="houzez-icon icon-answer-machine mr-1"></i>
-                                                {{ setting(session()->get('setting_id'), 'setting_id')->social_media['phone'] }}
+                                                {{ settings(session()->get('setting_id'), 'setting_id')->social_media['phone'] }}
                                             </li>
                                         @endif
                                         @if (
-                                            !empty(setting(session()->get('setting_id'), 'setting_id')->social_media) &&
-                                                isset(setting(session()->get('setting_id'), 'setting_id')->social_media['email']) &&
-                                                !empty(setting(session()->get('setting_id'), 'setting_id')->social_media['email']))
+                                            !empty(settings(session()->get('setting_id'), 'setting_id')->social_media) &&
+                                                isset(settings(session()->get('setting_id'), 'setting_id')->social_media['email']) &&
+                                                !empty(settings(session()->get('setting_id'), 'setting_id')->social_media['email']))
                                             <li><i class="houzez-icon icon-envelope mr-1"></i> <a
-                                                    href="mailto:{{ setting(session()->get('setting_id'), 'setting_id')->social_media['email'] }}"><span>{{ setting(session()->get('setting_id'), 'setting_id')->social_media['email'] }}</span></a>
+                                                    href="mailto:{{ settings(session()->get('setting_id'), 'setting_id')->social_media['email'] }}"><span>{{ settings(session()->get('setting_id'), 'setting_id')->social_media['email'] }}</span></a>
                                             </li>
                                         @endif
                                     </ul>
@@ -71,7 +70,7 @@
                     <div class="col-lg-6 col-md-12">
                         <div id="mc4wp_form_widget-2" class="footer-widget widget widget-wrap widget_mc4wp_form_widget">
                             <div class="widget-header">
-                                <h3 class="widget-title">@lang('additional.fields.newsletter')</h3>
+                                <h3 class="widget-title text-white">@lang('additional.fields.newsletter')</h3>
                             </div>
                             <form id="mc4wp-form-1" class="mc4wp-form mc4wp-form-1251" method="post" data-id="1251"
                                 data-name="Footer Form">
@@ -122,57 +121,57 @@
                     </div>
                     <div class="footer-social">
                         @if (
-                            !empty(setting(session()->get('setting_id'), 'setting_id')) &&
-                                !empty(setting(session()->get('setting_id'), 'setting_id')->social_media) &&
-                                isset(setting(session()->get('setting_id'), 'setting_id')->social_media['facebook']) &&
-                                !empty(setting(session()->get('setting_id'), 'setting_id')->social_media['facebook']))
+                            !empty(settings(session()->get('setting_id'), 'setting_id')) &&
+                                !empty(settings(session()->get('setting_id'), 'setting_id')->social_media) &&
+                                isset(settings(session()->get('setting_id'), 'setting_id')->social_media['facebook']) &&
+                                !empty(settings(session()->get('setting_id'), 'setting_id')->social_media['facebook']))
                             <span>
                                 <a class="btn-facebook" target="_blank"
-                                    href="{{ setting(session()->get('setting_id'), 'setting_id')->social_media['facebook'] }}">
+                                    href="{{ settings(session()->get('setting_id'), 'setting_id')->social_media['facebook'] }}">
                                     <i class="houzez-icon icon-social-media-facebook mr-2"></i> </a>
                             </span>
                         @endif
                         @if (
-                            !empty(setting(session()->get('setting_id'), 'setting_id')) &&
-                                !empty(setting(session()->get('setting_id'), 'setting_id')->social_media) &&
-                                isset(setting(session()->get('setting_id'), 'setting_id')->social_media['twitter']) &&
-                                !empty(setting(session()->get('setting_id'), 'setting_id')->social_media['twitter']))
+                            !empty(settings(session()->get('setting_id'), 'setting_id')) &&
+                                !empty(settings(session()->get('setting_id'), 'setting_id')->social_media) &&
+                                isset(settings(session()->get('setting_id'), 'setting_id')->social_media['twitter']) &&
+                                !empty(settings(session()->get('setting_id'), 'setting_id')->social_media['twitter']))
                             <span>
                                 <a class="btn-twitter" target="_blank"
-                                    href="{{ setting(session()->get('setting_id'), 'setting_id')->social_media['twitter'] }}">
+                                    href="{{ settings(session()->get('setting_id'), 'setting_id')->social_media['twitter'] }}">
                                     <i class="houzez-icon icon-x-logo-twitter-logo-2 mr-2"></i> </a>
                             </span>
                         @endif
                         @if (
-                            !empty(setting(session()->get('setting_id'), 'setting_id')) &&
-                                !empty(setting(session()->get('setting_id'), 'setting_id')->social_media) &&
-                                isset(setting(session()->get('setting_id'), 'setting_id')->social_media['tiktok']) &&
-                                !empty(setting(session()->get('setting_id'), 'setting_id')->social_media['tiktok']))
+                            !empty(settings(session()->get('setting_id'), 'setting_id')) &&
+                                !empty(settings(session()->get('setting_id'), 'setting_id')->social_media) &&
+                                isset(settings(session()->get('setting_id'), 'setting_id')->social_media['tiktok']) &&
+                                !empty(settings(session()->get('setting_id'), 'setting_id')->social_media['tiktok']))
                             <span>
                                 <a class="btn-googleplus" target="_blank"
-                                    href="{{ setting(session()->get('setting_id'), 'setting_id')->social_media['tiktok'] }}">
+                                    href="{{ settings(session()->get('setting_id'), 'setting_id')->social_media['tiktok'] }}">
                                     <i class="houzez-icon icon-social-tiktok-1 mr-2"></i> </a>
                             </span>
                         @endif
                         @if (
-                            !empty(setting(session()->get('setting_id'), 'setting_id')) &&
-                                !empty(setting(session()->get('setting_id'), 'setting_id')->social_media) &&
-                                isset(setting(session()->get('setting_id'), 'setting_id')->social_media['linkedin']) &&
-                                !empty(setting(session()->get('setting_id'), 'setting_id')->social_media['linkedin']))
+                            !empty(settings(session()->get('setting_id'), 'setting_id')) &&
+                                !empty(settings(session()->get('setting_id'), 'setting_id')->social_media) &&
+                                isset(settings(session()->get('setting_id'), 'setting_id')->social_media['linkedin']) &&
+                                !empty(settings(session()->get('setting_id'), 'setting_id')->social_media['linkedin']))
                             <span>
                                 <a class="btn-linkedin" target="_blank"
-                                    href="{{ setting(session()->get('setting_id'), 'setting_id')->social_media['linkedin'] }}">
+                                    href="{{ settings(session()->get('setting_id'), 'setting_id')->social_media['linkedin'] }}">
                                     <i class="houzez-icon icon-professional-network-linkedin mr-2"></i> </a>
                             </span>
                         @endif
                         @if (
-                            !empty(setting(session()->get('setting_id'), 'setting_id')) &&
-                                !empty(setting(session()->get('setting_id'), 'setting_id')->social_media) &&
-                                isset(setting(session()->get('setting_id'), 'setting_id')->social_media['instagram']) &&
-                                !empty(setting(session()->get('setting_id'), 'setting_id')->social_media['instagram']))
+                            !empty(settings(session()->get('setting_id'), 'setting_id')) &&
+                                !empty(settings(session()->get('setting_id'), 'setting_id')->social_media) &&
+                                isset(settings(session()->get('setting_id'), 'setting_id')->social_media['instagram']) &&
+                                !empty(settings(session()->get('setting_id'), 'setting_id')->social_media['instagram']))
                             <span>
                                 <a class="btn-instagram" target="_blank"
-                                    href="{{ setting(session()->get('setting_id'), 'setting_id')->social_media['instagram'] }}">
+                                    href="{{ settings(session()->get('setting_id'), 'setting_id')->social_media['instagram'] }}">
                                     <i class="houzez-icon icon-social-instagram mr-2"></i> </a>
                             </span>
                         @endif

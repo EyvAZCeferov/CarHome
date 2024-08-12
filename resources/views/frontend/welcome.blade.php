@@ -124,7 +124,7 @@
                                                                             <strong>{{ $choosen->name[app()->getLocale() . '_name'] }}</strong>
                                                                         </div>
                                                                         <div class="text-with-icon-body">
-                                                                            {{ strip_tags_with_whitespace($chosen->description[app()->getLocale() . '_description']) }}
+                                                                            {{ strip_tags_with_whitespace($choosen->description[app()->getLocale() . '_description']) }}
                                                                         </div>
                                                                     </div>
                                                                     {{-- <div class="text-with-icon-link">
@@ -269,6 +269,121 @@
                     </div>
                 </div>
             </section>
+            {{-- Blogs --}}
+            @if (
+                !empty(blogs(session()->get('setting_id'), 'setting_id')) &&
+                    count(blogs(session()->get('setting_id'), 'setting_id')) > 0)
+                <section
+                    class="elementor-section elementor-top-section elementor-element elementor-element-703e9467 elementor-section-content-middle elementor-section-stretched elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+                    data-id="703e9467" data-element_type="section"
+                    data-settings="{&quot;stretch_section&quot;:&quot;section-stretched&quot;,&quot;background_background&quot;:&quot;classic&quot;}">
+                    <div class="elementor-container elementor-column-gap-wider">
+                        <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-2042d28d"
+                            data-id="2042d28d" data-element_type="column">
+                            <div class="elementor-widget-wrap elementor-element-populated">
+                                <div class="elementor-element elementor-element-4cdced95 animated-slow elementor-invisible elementor-widget elementor-widget-houzez_elementor_section_title"
+                                    data-id="4cdced95" data-element_type="widget"
+                                    data-settings="{&quot;_animation&quot;:&quot;fadeIn&quot;}"
+                                    data-widget_type="houzez_elementor_section_title.default">
+                                    <div class="elementor-widget-container">
+                                        <div class="houzez_section_title_wrap section-title-module">
+                                            <h2 class="houzez_section_title">@lang('additional.routename.blogs')</h2>
+                                            <p class="houzez_section_subtitle">@lang('additional.fields.notifynewblogs')</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="elementor-element elementor-element-ce0cf14 elementor-widget elementor-widget-houzez_elementor_properties_carousel_v2"
+                                    data-id="ce0cf14" data-element_type="widget"
+                                    data-widget_type="houzez_elementor_properties_carousel_v2.default">
+                                    <div class="elementor-widget-container">
+                                        <div
+                                            class="property-carousel-module houzez-carousel-arrows-mpZBc houzez-carousel-cols-3 property-carousel-module-v2">
+                                            <div class="property-carousel-buttons-wrap">
+                                                <button type="button"
+                                                    class="slick-prev-js-mpZBc slick-prev btn-primary-outlined">@lang('additional.fields.prev')</button>
+                                                <button type="button"
+                                                    class="slick-next-js-mpZBc slick-next btn-primary-outlined">@lang('additional.fields.next')</button>
+                                            </div>
+                                            <div class="listing-view grid-view">
+                                                <div id="houzez-properties-carousel-mpZBc" data-token="mpZBc"
+                                                    class="houzez-properties-carousel-js houzez-all-slider-wrap card-deck">
+                                                    @foreach (blogs(session()->get('setting_id'), 'setting_id') as $blog)
+                                                        <div class="item-listing-wrap hz-item-gallery-js card"
+                                                            data-hz-id="hz-16890"
+                                                            data-images="[
+                                                            @foreach ($blog->images as $image)
+                                                                {&quot;image&quot;:&quot;{{ getImageUrl($image, 'images') }}&quot;,&quot;alt&quot;:&quot;&quot;,&quot;width&quot;:592,&quot;height&quot;:444}, @endforeach
+                                                            ]">
+                                                            <div class="item-wrap item-wrap-v1 item-wrap-no-frame h-100">
+                                                                <div class="d-flex align-items-center h-100">
+                                                                    <div class="item-header">
+                                                                        @if (!empty($blog->category) && isset($blog->category->id))
+                                                                            <div class="labels-wrap labels-right">
+                                                                                <a href="javascript:void(0)"
+                                                                                    class="label-status label status-color-7">
+                                                                                    {{ $blog->category->name[app()->getLocale() . '_name'] }}
+                                                                                </a>
+                                                                            </div>
+                                                                        @endif
+
+                                                                        @if (!empty($blog->images) && count($blog->images) > 0)
+                                                                            <div class="listing-image-wrap">
+                                                                                <div class="listing-thumb">
+                                                                                    <a target="_self"
+                                                                                        href="{{ route('frontend.show', ['page' => 'blogs', 'slug' => $blog->slugs[app()->getLocale() . '_slug']]) }}"
+                                                                                        class="listing-featured-thumb hover-effect">
+                                                                                        <img loading="lazy"
+                                                                                            decoding="async"
+                                                                                            width="592" height="444"
+                                                                                            src="{{ getImageUrl($blog->images[0], 'images') }}"
+                                                                                            data-src="{{ getImageUrl($blog->images[0], 'images') }}"
+                                                                                            class="houzez-lazyload img-fluid wp-post-image"
+                                                                                            alt="{{ $blog->name[app()->getLocale() . '_name'] }}"
+                                                                                            srcset
+                                                                                            data-srcset="{{ getImageUrl($blog->images[0], 'images') }} 592w, {{ getImageUrl($blog->images[0], 'images') }} 300w, {{ getImageUrl($blog->images[0], 'images') }} 1024w, {{ getImageUrl($blog->images[0], 'images') }} 768w, {{ getImageUrl($blog->images[0], 'images') }} 584w, {{ getImageUrl($blog->images[0], 'images') }} 800w, {{ getImageUrl($blog->images[0], 'images') }} 120w, {{ getImageUrl($blog->images[0], 'images') }} 496w, {{ getImageUrl($blog->images[0], 'images') }} 1170w"
+                                                                                            sizes="(max-width: 592px) 100vw, 592px" />
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="preview_loader"></div>
+                                                                        @endif
+                                                                    </div>
+                                                                    <div class="item-body flex-grow-1">
+                                                                        @if (!empty($blog->category) && isset($blog->category->id) && !empty($blog->category->id))
+                                                                            <div class="labels-wrap labels-right">
+                                                                                <a href="javascript:void(0)"
+                                                                                    class="label-status label status-color-7">
+                                                                                    {{ $blog->name[app()->getLocale() . '_name'] }}
+                                                                                </a>
+                                                                            </div>
+                                                                        @endif
+                                                                        <h2 class="item-title">
+                                                                            <a target="_self"
+                                                                                href="{{ route('frontend.show', ['page' => 'blogs', 'slug' => $blog->slugs[app()->getLocale() . '_slug']]) }}">{{ $blog->name[app()->getLocale() . '_name'] }}</a>
+                                                                        </h2>
+                                                                        <address class="item-address">
+                                                                            {{ mb_substr(strip_tags_with_whitespace($blog->description[app()->getLocale() . '_description']), 0, 50) }}...
+                                                                        </address>
+                                                                        <a class="btn btn-primary btn-item "
+                                                                            target="_self"
+                                                                            href="{{ route('frontend.show', ['page' => 'blogs', 'slug' => $blog->slugs[app()->getLocale() . '_slug']]) }}">
+                                                                            @lang('additional.fields.readmore')</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            @endif
+            {{-- Blogs --}}
+            {{-- ContactUs --}}
             <section
                 class="elementor-section elementor-top-section elementor-element elementor-element-64270702 elementor-section-stretched elementor-section-height-min-height elementor-section-boxed elementor-section-height-default elementor-section-items-middle"
                 data-id="64270702" data-element_type="section"
@@ -377,7 +492,8 @@
                                                             <div
                                                                 class="elementor-field-group elementor-column form-group elementor-field-group-3180222 elementor-col-100 elementor-field-required">
                                                                 <label for="form-field-3180222"
-                                                                    class="elementor-field-label">Property Details</label>
+                                                                    class="elementor-field-label">Property
+                                                                    Details</label>
                                                                 <div class="elementor-field elementor-select-wrapper">
                                                                     <select name="e_meta[property_type]"
                                                                         id="form-field-3180222"
@@ -391,7 +507,8 @@
                                                                             Home</option>
                                                                         <option value="office"> Office</option>
                                                                         <option value="shop"> Shop</option>
-                                                                        <option value="single-family-home"> Single Family
+                                                                        <option value="single-family-home"> Single
+                                                                            Family
                                                                             Home</option>
                                                                         <option value="studio"> Studio</option>
                                                                         <option value="villa"> Villa</option>
@@ -463,6 +580,7 @@
                     </div>
                 </div>
             </section>
+            {{-- ContactUs --}}
             {{-- Teams --}}
             @if (
                 !empty(teams(session()->get('setting_id'), 'setting_id')) &&
@@ -567,151 +685,158 @@
             @if (
                 !empty(products(session()->get('setting_id'), 'setting_id')) &&
                     count(products(session()->get('setting_id'), 'setting_id')) > 0)
-            <section
-                class="elementor-section elementor-top-section elementor-element elementor-element-3e8e996 elementor-section-content-middle elementor-section-stretched elementor-section-full_width elementor-section-height-default elementor-section-height-default"
-                data-id="3e8e996" data-element_type="section"
-                data-settings="{&quot;stretch_section&quot;:&quot;section-stretched&quot;,&quot;background_background&quot;:&quot;classic&quot;}">
-                <div class="elementor-background-overlay"></div>
-                <div class="elementor-container elementor-column-gap-wide">
-                    <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-5de7eb39"
-                        data-id="5de7eb39" data-element_type="column">
-                        <div class="elementor-widget-wrap elementor-element-populated">
-                            <div class="elementor-element elementor-element-869e3df elementor-widget elementor-widget-spacer"
-                                data-id="869e3df" data-element_type="widget" data-widget_type="spacer.default">
-                                <div class="elementor-widget-container">
-                                    <div class="elementor-spacer">
-                                        <div class="elementor-spacer-inner"></div>
+                <section
+                    class="elementor-section elementor-top-section elementor-element elementor-element-3e8e996 elementor-section-content-middle elementor-section-stretched elementor-section-full_width elementor-section-height-default elementor-section-height-default"
+                    data-id="3e8e996" data-element_type="section"
+                    data-settings="{&quot;stretch_section&quot;:&quot;section-stretched&quot;,&quot;background_background&quot;:&quot;classic&quot;}">
+                    <div class="elementor-background-overlay"></div>
+                    <div class="elementor-container elementor-column-gap-wide">
+                        <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-5de7eb39"
+                            data-id="5de7eb39" data-element_type="column">
+                            <div class="elementor-widget-wrap elementor-element-populated">
+                                <div class="elementor-element elementor-element-869e3df elementor-widget elementor-widget-spacer"
+                                    data-id="869e3df" data-element_type="widget" data-widget_type="spacer.default">
+                                    <div class="elementor-widget-container">
+                                        <div class="elementor-spacer">
+                                            <div class="elementor-spacer-inner"></div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <section
-                                class="elementor-section elementor-inner-section elementor-element elementor-element-ae96afd elementor-section-boxed elementor-section-height-default elementor-section-height-default"
-                                data-id="ae96afd" data-element_type="section">
-                                <div class="elementor-container elementor-column-gap-default">
-                                    <div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-5abb252"
-                                        data-id="5abb252" data-element_type="column">
-                                        <div class="elementor-widget-wrap elementor-element-populated">
-                                            <div class="elementor-element elementor-element-6a5e92f8 animated-slow elementor-invisible elementor-widget elementor-widget-houzez_elementor_section_title"
-                                                data-id="6a5e92f8" data-element_type="widget"
-                                                data-settings="{&quot;_animation&quot;:&quot;fadeIn&quot;}"
-                                                data-widget_type="houzez_elementor_section_title.default">
-                                                <div class="elementor-widget-container">
-                                                    <div class="houzez_section_title_wrap section-title-module">
-                                                        <h2 class="houzez_section_title">@lang("additional.fields.lastandchosenproperties")</h2>
-                                                        <p class="houzez_section_subtitle">@lang("additional.fields.lookpropertiesandbuy")</p>
+                                <section
+                                    class="elementor-section elementor-inner-section elementor-element elementor-element-ae96afd elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+                                    data-id="ae96afd" data-element_type="section">
+                                    <div class="elementor-container elementor-column-gap-default">
+                                        <div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-5abb252"
+                                            data-id="5abb252" data-element_type="column">
+                                            <div class="elementor-widget-wrap elementor-element-populated">
+                                                <div class="elementor-element elementor-element-6a5e92f8 animated-slow elementor-invisible elementor-widget elementor-widget-houzez_elementor_section_title"
+                                                    data-id="6a5e92f8" data-element_type="widget"
+                                                    data-settings="{&quot;_animation&quot;:&quot;fadeIn&quot;}"
+                                                    data-widget_type="houzez_elementor_section_title.default">
+                                                    <div class="elementor-widget-container">
+                                                        <div class="houzez_section_title_wrap section-title-module">
+                                                            <h2 class="houzez_section_title">@lang('additional.fields.lastandchosenproperties')</h2>
+                                                            <p class="houzez_section_subtitle">@lang('additional.fields.lookpropertiesandbuy')</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </section>
-                            <section
-                                class="elementor-section elementor-inner-section elementor-element elementor-element-3795d949 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
-                                data-id="3795d949" data-element_type="section">
-                                <div class="elementor-container elementor-column-gap-default">
-                                    <div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-534503b4"
-                                        data-id="534503b4" data-element_type="column">
-                                        <div class="elementor-widget-wrap elementor-element-populated">
-                                            <div class="elementor-element elementor-element-aca9f31 elementor-widget elementor-widget-houzez_elementor_properties_carousel_v1"
-                                                data-id="aca9f31" data-element_type="widget"
-                                                data-widget_type="houzez_elementor_properties_carousel_v1.default">
-                                                <div class="elementor-widget-container">
-                                                    <div
-                                                        class="property-carousel-module houzez-carousel-arrows-gPe1m houzez-carousel-cols-4 property-carousel-module-v1-4cols">
-                                                        <div class="property-carousel-buttons-wrap">
-                                                            <button type="button"
-                                                                class="slick-prev-js-gPe1m slick-prev btn-primary-outlined">Prev</button>
-                                                            <button type="button"
-                                                                class="slick-next-js-gPe1m slick-next btn-primary-outlined">Next</button>
-                                                        </div>
-                                                        <div class="listing-view grid-view">
-                                                            <div id="houzez-properties-carousel-gPe1m" data-token="gPe1m"
-                                                                class="houzez-properties-carousel-js houzez-all-slider-wrap card-deck">
-                                                                @foreach(products(session()->get("setting_id"),'setting_id') as $product)
-                                                                <div class="item-listing-wrap item-listing-wrap-v3">
-                                                                    <div class="item-wrap item-wrap-v3 item-wrap-no-frame">
-                                                                        <div class="listing-image-wrap">
-                                                                            <div class="listing-thumb">
-                                                                                <a target="_self"
-                                                                                    href="{{ route("frontend.show",['slug'=>$product->slugs[app()->getLocale().'_slug'],'page'=>'products']) }}"
-                                                                                    class="listing-featured-thumb hover-effect">
-                                                                                    <img fetchpriority="high"
-                                                                                        decoding="async" width="592"
-                                                                                        height="444"
-                                                                                        src="{{ getImageUrl($product->images[0],'images') }}"
-                                                                                        data-src="{{ getImageUrl($product->images[0],'images') }}"
-                                                                                        class="houzez-lazyload img-fluid wp-post-image"
-                                                                                        alt="{{ $product->name[app()->getLocale().'_name'] }}" srcset
-                                                                                        data-srcset="{{ getImageUrl($product->images[0],'images') }} 592w, {{ getImageUrl($product->images[0],'images') }} 300w, {{ getImageUrl($product->images[0],'images') }} 1024w, {{ getImageUrl($product->images[0],'images') }}, {{ getImageUrl($product->images[0],'images') }} 584w, {{ getImageUrl($product->images[0],'images') }} 800w, {{ getImageUrl($product->images[0],'images') }} 120w, {{ getImageUrl($product->images[0],'images') }} 496w, {{ getImageUrl($product->images[0],'images') }} 1170w"
-                                                                                        sizes="(max-width: 592px) 100vw, 592px" />
-                                                                                </a>
+                                </section>
+                                <section
+                                    class="elementor-section elementor-inner-section elementor-element elementor-element-3795d949 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+                                    data-id="3795d949" data-element_type="section">
+                                    <div class="elementor-container elementor-column-gap-default">
+                                        <div class="elementor-column elementor-col-100 elementor-inner-column elementor-element elementor-element-534503b4"
+                                            data-id="534503b4" data-element_type="column">
+                                            <div class="elementor-widget-wrap elementor-element-populated">
+                                                <div class="elementor-element elementor-element-aca9f31 elementor-widget elementor-widget-houzez_elementor_properties_carousel_v1"
+                                                    data-id="aca9f31" data-element_type="widget"
+                                                    data-widget_type="houzez_elementor_properties_carousel_v1.default">
+                                                    <div class="elementor-widget-container">
+                                                        <div
+                                                            class="property-carousel-module houzez-carousel-arrows-gPe1m houzez-carousel-cols-4 property-carousel-module-v1-4cols">
+                                                            <div class="property-carousel-buttons-wrap">
+                                                                <button type="button"
+                                                                    class="slick-prev-js-gPe1m slick-prev btn-primary-outlined">@lang('additional.fields.prev')</button>
+                                                                <button type="button"
+                                                                    class="slick-next-js-gPe1m slick-next btn-primary-outlined">@lang('additional.fields.next')</button>
+                                                            </div>
+                                                            <div class="listing-view grid-view">
+                                                                <div id="houzez-properties-carousel-gPe1m"
+                                                                    data-token="gPe1m"
+                                                                    class="houzez-properties-carousel-js houzez-all-slider-wrap card-deck">
+                                                                    @foreach (products(session()->get('setting_id'), 'setting_id') as $product)
+                                                                        <div
+                                                                            class="item-listing-wrap item-listing-wrap-v3">
+                                                                            <div
+                                                                                class="item-wrap item-wrap-v3 item-wrap-no-frame">
+                                                                                <div class="listing-image-wrap">
+                                                                                    <div class="listing-thumb">
+                                                                                        <a target="_self"
+                                                                                            href="{{ route('frontend.show', ['slug' => $product->slugs[app()->getLocale() . '_slug'], 'page' => 'products']) }}"
+                                                                                            class="listing-featured-thumb hover-effect">
+                                                                                            <img fetchpriority="high"
+                                                                                                decoding="async"
+                                                                                                width="592"
+                                                                                                height="444"
+                                                                                                src="{{ getImageUrl($product->images[0], 'images') }}"
+                                                                                                data-src="{{ getImageUrl($product->images[0], 'images') }}"
+                                                                                                class="houzez-lazyload img-fluid wp-post-image"
+                                                                                                alt="{{ $product->name[app()->getLocale() . '_name'] }}"
+                                                                                                srcset
+                                                                                                data-srcset="{{ getImageUrl($product->images[0], 'images') }} 592w, {{ getImageUrl($product->images[0], 'images') }} 300w, {{ getImageUrl($product->images[0], 'images') }} 1024w, {{ getImageUrl($product->images[0], 'images') }}, {{ getImageUrl($product->images[0], 'images') }} 584w, {{ getImageUrl($product->images[0], 'images') }} 800w, {{ getImageUrl($product->images[0], 'images') }} 120w, {{ getImageUrl($product->images[0], 'images') }} 496w, {{ getImageUrl($product->images[0], 'images') }} 1170w"
+                                                                                                sizes="(max-width: 592px) 100vw, 592px" />
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <h2 class="item-title">
+                                                                                    <a target="_self"
+                                                                                        href="{{ route('frontend.show', ['slug' => $product->slugs[app()->getLocale() . '_slug'], 'page' => 'products']) }}">{{ $product->name[app()->getLocale() . '_name'] }}</a>
+                                                                                </h2>
+                                                                                {{-- <ul
+                                                                            class="item-amenities item-amenities-with-icons">
+                                                                            <li class="h-beds"><i
+                                                                                    class="houzez-icon icon-hotel-double-bed-1 mr-1"></i><span
+                                                                                    class="item-amenities-text">Beds:</span>
+                                                                                <span class="hz-figure">4</span>
+                                                                            </li>
+                                                                            <li class="h-baths"><i
+                                                                                    class="houzez-icon icon-bathroom-shower-1 mr-1"></i><span
+                                                                                    class="item-amenities-text">Baths:</span>
+                                                                                <span class="hz-figure">2</span>
+                                                                            </li>
+                                                                            <li class="h-area"><i
+                                                                                    class="houzez-icon icon-ruler-triangle mr-1"></i><span
+                                                                                    class="hz-figure">1200</span> <span
+                                                                                    class="hz-figure area_postfix">Sq
+                                                                                    Ft</span></li>
+                                                                            <li class="h-type"><span>Apartment</span></li>
+                                                                        </ul> --}}
+                                                                                <ul class="item-price-wrap hide-on-list">
+                                                                                    <li class="item-price"><span
+                                                                                            class="price-prefix">
+                                                                                        </span>{{ $product->prices['price'] }}
+                                                                                    </li>
+                                                                                </ul>
+                                                                                <div class="labels-wrap labels-right">
+                                                                                    <a href="javascript:void(0)"
+                                                                                        class="label-status label status-color-8">
+                                                                                        @lang('additional.fields.forsale')
+                                                                                    </a>
+                                                                                </div>
+
+                                                                                <div class="preview_loader"></div>
+                                                                            </div>
+                                                                            <div class="item-wrap-outside">
+                                                                                <h2 class="item-title">
+                                                                                    <a target="_self"
+                                                                                        href="{{ route('frontend.show', ['slug' => $product->slugs[app()->getLocale() . '_slug'], 'page' => 'products']) }}">{{ $product->name[app()->getLocale() . '_name'] }}</a>
+                                                                                </h2>
+                                                                                {{-- <ul
+                                                                            class="item-amenities item-amenities-with-icons">
+                                                                            <li class="h-beds"><i
+                                                                                    class="houzez-icon icon-hotel-double-bed-1 mr-1"></i><span
+                                                                                    class="item-amenities-text">Beds:</span>
+                                                                                <span class="hz-figure">4</span>
+                                                                            </li>
+                                                                            <li class="h-baths"><i
+                                                                                    class="houzez-icon icon-bathroom-shower-1 mr-1"></i><span
+                                                                                    class="item-amenities-text">Baths:</span>
+                                                                                <span class="hz-figure">2</span>
+                                                                            </li>
+                                                                            <li class="h-area"><i
+                                                                                    class="houzez-icon icon-ruler-triangle mr-1"></i><span
+                                                                                    class="hz-figure">1200</span> <span
+                                                                                    class="hz-figure area_postfix">Sq
+                                                                                    Ft</span></li>
+                                                                            <li class="h-type"><span>Apartment</span></li>
+                                                                        </ul> --}}
                                                                             </div>
                                                                         </div>
-                                                                        <h2 class="item-title">
-                                                                            <a target="_self"
-                                                                                href="{{ route("frontend.show",['slug'=>$product->slugs[app()->getLocale().'_slug'],'page'=>'products']) }}">{{ $product->name[app()->getLocale().'_name'] }}</a>
-                                                                        </h2>
-                                                                        {{-- <ul
-                                                                            class="item-amenities item-amenities-with-icons">
-                                                                            <li class="h-beds"><i
-                                                                                    class="houzez-icon icon-hotel-double-bed-1 mr-1"></i><span
-                                                                                    class="item-amenities-text">Beds:</span>
-                                                                                <span class="hz-figure">4</span>
-                                                                            </li>
-                                                                            <li class="h-baths"><i
-                                                                                    class="houzez-icon icon-bathroom-shower-1 mr-1"></i><span
-                                                                                    class="item-amenities-text">Baths:</span>
-                                                                                <span class="hz-figure">2</span>
-                                                                            </li>
-                                                                            <li class="h-area"><i
-                                                                                    class="houzez-icon icon-ruler-triangle mr-1"></i><span
-                                                                                    class="hz-figure">1200</span> <span
-                                                                                    class="hz-figure area_postfix">Sq
-                                                                                    Ft</span></li>
-                                                                            <li class="h-type"><span>Apartment</span></li>
-                                                                        </ul> --}}
-                                                                        <ul class="item-price-wrap hide-on-list">
-                                                                            <li class="item-price"><span
-                                                                                    class="price-prefix">
-                                                                                </span>{{ $product->prices['price'] }}</li>
-                                                                        </ul>
-                                                                        <div class="labels-wrap labels-right">
-                                                                            <a href="javascript:void(0)"
-                                                                                class="label-status label status-color-8">
-                                                                                @lang("additional.fields.forsale")
-                                                                            </a>
-                                                                        </div>
-                                                                       
-                                                                        <div class="preview_loader"></div>
-                                                                    </div>
-                                                                    <div class="item-wrap-outside">
-                                                                        <h2 class="item-title">
-                                                                            <a target="_self"
-                                                                                href="{{ route("frontend.show",['slug'=>$product->slugs[app()->getLocale().'_slug'],'page'=>'products']) }}">{{ $product->name[app()->getLocale().'_name'] }}</a>
-                                                                        </h2>
-                                                                        {{-- <ul
-                                                                            class="item-amenities item-amenities-with-icons">
-                                                                            <li class="h-beds"><i
-                                                                                    class="houzez-icon icon-hotel-double-bed-1 mr-1"></i><span
-                                                                                    class="item-amenities-text">Beds:</span>
-                                                                                <span class="hz-figure">4</span>
-                                                                            </li>
-                                                                            <li class="h-baths"><i
-                                                                                    class="houzez-icon icon-bathroom-shower-1 mr-1"></i><span
-                                                                                    class="item-amenities-text">Baths:</span>
-                                                                                <span class="hz-figure">2</span>
-                                                                            </li>
-                                                                            <li class="h-area"><i
-                                                                                    class="houzez-icon icon-ruler-triangle mr-1"></i><span
-                                                                                    class="hz-figure">1200</span> <span
-                                                                                    class="hz-figure area_postfix">Sq
-                                                                                    Ft</span></li>
-                                                                            <li class="h-type"><span>Apartment</span></li>
-                                                                        </ul> --}}
-                                                                    </div>
+                                                                    @endforeach
                                                                 </div>
-                                                                @endforeach
                                                             </div>
                                                         </div>
                                                     </div>
@@ -719,23 +844,22 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </section>
-                            <div class="elementor-element elementor-element-5d41248f elementor-widget elementor-widget-spacer"
-                                data-id="5d41248f" data-element_type="widget" data-widget_type="spacer.default">
-                                <div class="elementor-widget-container">
-                                    <div class="elementor-spacer">
-                                        <div class="elementor-spacer-inner"></div>
+                                </section>
+                                <div class="elementor-element elementor-element-5d41248f elementor-widget elementor-widget-spacer"
+                                    data-id="5d41248f" data-element_type="widget" data-widget_type="spacer.default">
+                                    <div class="elementor-widget-container">
+                                        <div class="elementor-spacer">
+                                            <div class="elementor-spacer-inner"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
             @endif
             {{-- Products --}}
-{{-- Partners --}}
+            {{-- Partners --}}
             @if (
                 !empty(partners(session()->get('setting_id'), 'setting_id')) &&
                     count(partners(session()->get('setting_id'), 'setting_id')) > 0)
@@ -767,7 +891,7 @@
                     data-id="428fb1b0" data-element_type="section"
                     data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
                     <div class="elementor-container elementor-column-gap-default">
-                        @foreach (partners(session()->get('setting_id'), 'settin_id') as $partner)
+                        @foreach (partners(session()->get('setting_id'), 'setting_id') as $partner)
                             <div class="elementor-column elementor-col-20 elementor-top-column elementor-element elementor-element-333ffd1"
                                 data-id="333ffd1" data-element_type="column">
                                 <div class="elementor-widget-wrap elementor-element-populated">

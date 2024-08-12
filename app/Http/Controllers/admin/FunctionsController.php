@@ -216,11 +216,12 @@ class FunctionsController extends Controller
             if ($request->has("services") && !empty($request->input("services"))) {
                 $prservs = null;
                 if (!empty($data) && isset($data->id))
-                    $prservs = product_has_service(null, $data->id);
+                    $prservs = ProductServices::orderBy('id', 'DESC')->where('product_id', $data->id)->get();
 
-                if (!empty($prservs) && count($prservs) > 0) {
+                if (!empty($prservs)) {
                     foreach ($prservs as $prs) {
-                        $prs->delete();
+                        if($prs->id)
+                            $prs->delete();
                     }
                 }
 

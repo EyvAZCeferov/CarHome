@@ -8,12 +8,31 @@
                         href="{{ route('frontend.index', ['page' => 'welcome', 'setting_id' => session()->get('setting_id')]) }}">@lang('additional.routename.welcome')</a>
                 </li>
 
+                <li
+                    class="nav-item houzez-megamenu menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children dropdown">
+                    <a class="nav-link " href="javascript:void(0)">{{ strtoupper(app()->getLocale()) }}</a> <span
+                        class="nav-mobile-trigger dropdown-toggle" data-toggle="dropdown">
+                        <i class="houzez-icon arrow-down-1"></i>
+                    </span>
+                    <ul class="dropdown-menu">
+                        @foreach ($setting->langs as $lang)
+                            @if ($lang != app()->getLocale())
+                                <li
+                                    class="nav-item new-feature menu-item menu-item-type-post_type menu-item-object-page ">
+                                    <a class="dropdown-item "
+                                        href="{{ LaravelLocalization::getLocalizedURL($lang, null, [], true) }}">{{ strtoupper($lang) }}</a>
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
+                </li>
+
             </ul>
         </div>
     </div>
 
     <header class="header-main-wrap header-transparent-wrap">
-        <div id="header-section" class="header-desktop header-v4" data-sticky="1">
+        <div id="header-section" class="header-desktop header-v4" data-sticky="0">
             <div class="container">
                 <div class="header-inner-wrap">
                     <div class="navbar d-flex align-items-center">
@@ -31,7 +50,28 @@
 
                                 <li id="menu-item-955"
                                     class="menu-item menu-item-type-custom menu-item-object-custom nav-item menu-item-955 menu-item-design-default">
-                                    <a class="nav-link" href="#">Home</a>
+                                    <a class="nav-link"
+                                        href="{{ route('frontend.index', ['page' => 'welcome', 'setting_id' => session()->get('setting_id')]) }}">@lang('additional.routename.welcome')</a>
+                                </li>
+
+                                <li
+                                    class="nav-item houzez-megamenu menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children dropdown">
+                                    <a class="nav-link "
+                                        href="javascript:void(0)">{{ strtoupper(app()->getLocale()) }}</a> <span
+                                        class="nav-mobile-trigger dropdown-toggle" data-toggle="dropdown">
+                                        <i class="houzez-icon arrow-down-1"></i>
+                                    </span>
+                                    <ul class="dropdown-menu">
+                                        @foreach ($setting->langs as $lang)
+                                            @if ($lang != app()->getLocale())
+                                                <li
+                                                    class="nav-item new-feature menu-item menu-item-type-post_type menu-item-object-page ">
+                                                    <a class="dropdown-item "
+                                                        href="{{ LaravelLocalization::getLocalizedURL($lang, null, [], true) }}">{{ strtoupper($lang) }}</a>
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
                                 </li>
 
                             </ul>
@@ -58,11 +98,7 @@
                     </div>
                 </div>
             @endif
-            <div class="header-mobile-right">
-                <button class="btn toggle-button-right">
-                    <i class="houzez-icon icon-single-neutral-circle ml-1"></i>
-                </button>
-            </div>
+
         </div>
     </header>
 @endif

@@ -24,6 +24,7 @@ class StandartPages extends Model
     protected $casts = [
         'name' => 'json',
         'description' => "json",
+        'slugs' => "json",
         'images' => "json",
         'additional_data' => "json",
         'status' => 'boolean',

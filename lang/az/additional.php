@@ -7,6 +7,8 @@ return [
         'blog'=>"Bloq",
         'services'=>"Xidmətlər",
         'service'=>"Xidmət",
+        'teams'=>"Komandalar",
+        'team'=>"Komanda",
     ],
     'fields'=>[
         'useourservices'=>"Bizim xidmətlərdən faydalanın",
@@ -24,6 +26,9 @@ return [
         'readmore'=>"Daha ətraflı",
         'contactus'=>"Bizimlə əlaqə",
         'newsletter'=>"Xəbərlər",
-        'submit'=>"Təsdiq et"
+        'submit'=>"Təsdiq et",
+        'notifynewblogs'=>"Yeni blog lardan xəbərdar olun",
+        'prev'=>"Əvvəlki",
+        'next'=>"Sonrakı"
     ],
 ];
