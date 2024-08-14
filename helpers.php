@@ -300,7 +300,7 @@ if (!function_exists('services')) {
             else if ($type == 'top_service_id')
                 $model = $model->where('top_service_id', $key)->get();
             else if ($type == 'slug')
-                $model = $model->where('slugs->az_slug', $key)->where('slugs->en_slug', $key)->where('slugs->ru_slug', $key)->first();
+                $model = $model->where('slugs->az_slug', $key)->orWhere('slugs->en_slug', $key)->orWhere('slugs->ru_slug', $key)->first();
             else
                 $model = $model->where("id", $key)->first();
         } else {
@@ -320,7 +320,7 @@ if (!function_exists('products')) {
             else if ($type == 'category_id')
                 $model = $model->where('category_id', $key)->get();
             else if ($type == 'slug')
-                $model = $model->where('slugs->az_slug', $key)->where('slugs->en_slug', $key)->where('slugs->ru_slug', $key)->first();
+                $model = $model->where('slugs->az_slug', $key)->orWhere('slugs->en_slug', $key)->orWhere('slugs->ru_slug', $key)->first();
             else
                 $model = $model->where("id", $key)->first();
         } else {

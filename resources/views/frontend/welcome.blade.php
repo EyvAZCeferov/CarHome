@@ -1,5 +1,6 @@
 @extends('frontend.layouts.app')
 @section('title', $title)
+@section('headerclass','header-transparent-wrap')
 @section('content')
     <section class="content-wrap">
         <div data-elementor-type="wp-page" data-elementor-id="16519" class="elementor elementor-16519">
@@ -204,7 +205,7 @@
                                     <div class="elementor-widget-container">
                                         <div class="text-with-icons-module module-4cols clearfix">
                                             @foreach (services(session()->get('setting_id'), 'setting_id') as $service)
-                                                <div class="text-with-icon-item text-with-icon-item-v1">
+                                                <div class="text-with-icon-item text-with-icon-item-v1 hoveritem" onclick="redirecturl('{{ route('frontend.show',['page'=>'services','slug'=>$service->slugs[app()->getLocale().'_slug']]) }}')">
                                                     @if (!empty($service->images) && count($service->images) > 0)
                                                         <div class="icon-thumb">
                                                             <img loading="lazy" decoding="async" width="40"
@@ -775,29 +776,10 @@
                                                                                     <a target="_self"
                                                                                         href="{{ route('frontend.show', ['slug' => $product->slugs[app()->getLocale() . '_slug'], 'page' => 'products']) }}">{{ $product->name[app()->getLocale() . '_name'] }}</a>
                                                                                 </h2>
-                                                                                {{-- <ul
-                                                                            class="item-amenities item-amenities-with-icons">
-                                                                            <li class="h-beds"><i
-                                                                                    class="houzez-icon icon-hotel-double-bed-1 mr-1"></i><span
-                                                                                    class="item-amenities-text">Beds:</span>
-                                                                                <span class="hz-figure">4</span>
-                                                                            </li>
-                                                                            <li class="h-baths"><i
-                                                                                    class="houzez-icon icon-bathroom-shower-1 mr-1"></i><span
-                                                                                    class="item-amenities-text">Baths:</span>
-                                                                                <span class="hz-figure">2</span>
-                                                                            </li>
-                                                                            <li class="h-area"><i
-                                                                                    class="houzez-icon icon-ruler-triangle mr-1"></i><span
-                                                                                    class="hz-figure">1200</span> <span
-                                                                                    class="hz-figure area_postfix">Sq
-                                                                                    Ft</span></li>
-                                                                            <li class="h-type"><span>Apartment</span></li>
-                                                                        </ul> --}}
                                                                                 <ul class="item-price-wrap hide-on-list">
                                                                                     <li class="item-price"><span
                                                                                             class="price-prefix">
-                                                                                        </span>{{ $product->prices['price'] }}
+                                                                                        </span> ${{ $product->prices['price'] }}
                                                                                     </li>
                                                                                 </ul>
                                                                                 <div class="labels-wrap labels-right">
@@ -814,25 +796,6 @@
                                                                                     <a target="_self"
                                                                                         href="{{ route('frontend.show', ['slug' => $product->slugs[app()->getLocale() . '_slug'], 'page' => 'products']) }}">{{ $product->name[app()->getLocale() . '_name'] }}</a>
                                                                                 </h2>
-                                                                                {{-- <ul
-                                                                            class="item-amenities item-amenities-with-icons">
-                                                                            <li class="h-beds"><i
-                                                                                    class="houzez-icon icon-hotel-double-bed-1 mr-1"></i><span
-                                                                                    class="item-amenities-text">Beds:</span>
-                                                                                <span class="hz-figure">4</span>
-                                                                            </li>
-                                                                            <li class="h-baths"><i
-                                                                                    class="houzez-icon icon-bathroom-shower-1 mr-1"></i><span
-                                                                                    class="item-amenities-text">Baths:</span>
-                                                                                <span class="hz-figure">2</span>
-                                                                            </li>
-                                                                            <li class="h-area"><i
-                                                                                    class="houzez-icon icon-ruler-triangle mr-1"></i><span
-                                                                                    class="hz-figure">1200</span> <span
-                                                                                    class="hz-figure area_postfix">Sq
-                                                                                    Ft</span></li>
-                                                                            <li class="h-type"><span>Apartment</span></li>
-                                                                        </ul> --}}
                                                                             </div>
                                                                         </div>
                                                                     @endforeach

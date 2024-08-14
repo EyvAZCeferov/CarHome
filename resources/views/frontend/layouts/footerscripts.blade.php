@@ -269,4 +269,5 @@
             });
         });
     </script>
+    <script src="{{ asset("frontend/globalmart/eyvaz.js") }}" type="text/javascript"></script>
 @endif

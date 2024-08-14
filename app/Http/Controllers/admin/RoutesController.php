@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\admin;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -331,6 +330,7 @@ class RoutesController extends Controller
                         'namejson',
                         'slugjson',
                         'descjson',
+                        'socialjson',
                         'image',
                         'order_number',
                         'status',
@@ -389,6 +389,7 @@ class RoutesController extends Controller
                         'namejson',
                         'slugjson',
                         'descjson',
+                        'addressjson',
                         'imagesjson',
                         'pricejson',
                         'category_id',
@@ -471,7 +472,11 @@ class RoutesController extends Controller
                 case 'products':
                     $data = products($request->slug,'setting_id');
                     $pagename = 'products';
-                    $title = trans("additional.routename.products");
+                    $title = trans("additional.routename.products_houses");
+                case 'services':
+                    $data = services($request->slug,'setting_id');
+                    $pagename = 'services';
+                    $title = trans("additional.routename.services");
                 break;
                 case 'product':
                     $data = products($request->slug,'slug');
@@ -508,6 +513,16 @@ class RoutesController extends Controller
                     $routename = 'teams';
                     $data=teams($slug,'slug');
                     $title = trans("additional.routename.team").' '.$data->name[app()->getLocale().'_name'];
+                break;
+                case 'services':
+                    $routename = 'services';
+                    $data=services($slug,'slug');
+                    $title = trans("additional.routename.service").' '.$data->name[app()->getLocale().'_name'];
+                break;
+                case 'products':
+                    $routename = 'products';
+                    $data=products($slug,'slug');
+                    $title = trans("additional.routename.product_house").' '.$data->name[app()->getLocale().'_name'];
                 break;
             }
 

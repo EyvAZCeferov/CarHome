@@ -45,7 +45,7 @@
             </li>
 
             <li class="{{ \Illuminate\Support\Str::contains(url()->full(), 'partners') ? 'active' : '' }}">
-                <a href="{{ route('admin.index', ['page' => 'partners']) }}"><i class="fa fa-hands-helping"></i> <span
+                <a href="{{ route('admin.index', ['page' => 'partners']) }}"><i class="fa fa-soap"></i> <span
                         class="nav-label">Partnyorlar</span></a>
             </li>
 

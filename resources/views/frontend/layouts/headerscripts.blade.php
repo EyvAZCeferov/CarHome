@@ -1800,5 +1800,6 @@
             }
             //});
         };
-    </script>̰
+    </script>
+    <link rel="stylesheet" href="{{ asset("frontend/globalmart/eyvaz.css") }}">
 @endif

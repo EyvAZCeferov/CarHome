@@ -1,0 +1,5 @@
+.hoveritem:hover,
+.hoveritem:focus,
+.hoveritem:active{
+    cursor: pointer;
+}
