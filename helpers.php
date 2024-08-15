@@ -176,7 +176,9 @@ if (!function_exists('standartpages')) {
             if ($type == 'setting_id')
                 $model = $model->where('setting_id', $key)->where("status",true)->get();
             else if ($type == 'slug')
-                $model = $model->where('slugs->az_slug', $key)->where('slugs->en_slug', $key)->where('slugs->ru_slug', $key)->first();
+                $model = $model->where('slugs->az_slug', $key)->orWhere('slugs->en_slug', $key)->orWhere('slugs->ru_slug', $key)->first();
+            else if ($type == 'type')
+                $model = $model->where('slugs->az_slug', $key)->first();
             else
                 $model = $model->where("id", $key)->first();
         } else {

@@ -519,10 +519,20 @@ class RoutesController extends Controller
                     $data=services($slug,'slug');
                     $title = trans("additional.routename.service").' '.$data->name[app()->getLocale().'_name'];
                 break;
+                case 'blogs':
+                    $routename = 'blogs';
+                    $data=blogs($slug,'slug');
+                    $title = trans("additional.routename.blog").' '.$data->name[app()->getLocale().'_name'];
+                break;
                 case 'products':
                     $routename = 'products';
                     $data=products($slug,'slug');
                     $title = trans("additional.routename.product_house").' '.$data->name[app()->getLocale().'_name'];
+                break;
+                case 'standartpages':
+                    $routename = 'standartpages';
+                    $data=standartpages($slug,'slug');
+                    $title = $data->name[app()->getLocale().'_name'];
                 break;
             }
 

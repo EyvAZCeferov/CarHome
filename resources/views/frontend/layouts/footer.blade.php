@@ -3,7 +3,7 @@
         <div class="footer-top-wrap">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
                         <div id="houzez_about_widget-3" class="footer-widget widget widget-wrap widget-about-site">
                             <div class="widget-header">
                                 <h3 class="widget-title text-white">@lang('additional.fields.aboutsite')</h3>
@@ -29,7 +29,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
                         <div id="houzez_contact-7" class="footer-widget widget widget-wrap widget-contact-us">
                             <div class="widget-header">
                                 <h3 class="widget-title text-white">@lang('additional.fields.contactus')</h3>
@@ -67,36 +67,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-12">
-                        <div id="mc4wp_form_widget-2" class="footer-widget widget widget-wrap widget_mc4wp_form_widget">
-                            <div class="widget-header">
-                                <h3 class="widget-title text-white">@lang('additional.fields.newsletter')</h3>
-                            </div>
-                            <form id="mc4wp-form-1" class="mc4wp-form mc4wp-form-1251" method="post" data-id="1251"
-                                data-name="Footer Form">
-                                @csrf
-                                <div class="mc4wp-form-fields">
-                                    <div class="row">
-                                        <div class="col-lg-8 col-md-8 col-sm-12">
-                                            <div class="form-group mb-1">
-                                                <div class="input-email input-icon">
-                                                    <input class="form-control" type="email" name="email" required
-                                                        placeholder="@lang('additional.fields.email')">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-md-4 col-sm-12">
-                                            <div class="form-group mb-1">
-                                                <button type="submit"
-                                                    class="btn btn-primary btn-block">@lang('additional.fields.submit')</button>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                </div>
-                            </form>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -185,4 +156,14 @@
             <i class="houzez-icon icon-arrow-up-1"></i>
         </a>
     </div>
+    @php
+        $setting_id = session()->get('setting_id');
+        $settings = settings($setting_id, 'setting_id');
+        $whatsapp = $settings->social_media['whatsapp'] ?? null;
+    @endphp
+
+    @if (!empty($settings->social_media) && !empty($whatsapp))
+        <a class="whatsappbuttontoupper" href="https://api.whatsapp.com/send?phone={{ $whatsapp }}"><i class="fa fa-whatsapp"></i></a>
+    @endif
+
 @endif

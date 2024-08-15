@@ -109,6 +109,25 @@
             "slides_to_show": "4",
             "slides_to_scroll": "1"
         };
+        var houzez_prop_caoursel_Cta0V = {"slide_auto":"true","auto_speed":"3000","navigation":"true","slide_dots":"true","slide_infinite":"true","slides_to_show":"4","slides_to_scroll":"1"};
+        var houzez_prop_caoursel_T6J9m = {"slide_auto":"false","auto_speed":"3000","navigation":"true","slide_dots":"true","slide_infinite":"true","slides_to_show":"3","slides_to_scroll":"1"};
+        var houzez_prop_caoursel_ZsV8w = {"slide_auto":"false","auto_speed":"3000","navigation":"true","slide_dots":"false","slide_infinite":"true","slides_to_show":"3","slides_to_scroll":"1"};
+        var houzez_prop_caoursel_6Pd1f = {"slide_auto":"true","auto_speed":"3000","navigation":"true","slide_dots":"true","slide_infinite":"true","slides_to_show":"4","slides_to_scroll":"1"};
+        var houzez_prop_caoursel_sCjP4 = {"slide_auto":"true","auto_speed":"3000","navigation":"true","slide_dots":"true","slide_infinite":"true","slides_to_show":"4","slides_to_scroll":"1"};
+        var houzez_prop_caoursel_mpZBc = {"slide_auto":"false","auto_speed":"3000","navigation":"true","slide_dots":"true","slide_infinite":"true","slides_to_show":"3","slides_to_scroll":"1"};
+        var houzez_prop_caoursel_QcvqY = {"slide_auto":"false","auto_speed":"3000","navigation":"true","slide_dots":"false","slide_infinite":"true","slides_to_show":"3","slides_to_scroll":"1"};
+        var houzez_prop_caoursel_03jX6 = {"slide_auto":"true","auto_speed":"3000","navigation":"true","slide_dots":"true","slide_infinite":"true","slides_to_show":"4","slides_to_scroll":"1"};
+        var houzez_prop_caoursel_jl7pF = {"slide_auto":"false","auto_speed":"3000","navigation":"true","slide_dots":"true","slide_infinite":"true","slides_to_show":"3","slides_to_scroll":"1"};
+        var houzez_prop_caoursel_veOBv = {"slide_auto":"false","auto_speed":"3000","navigation":"true","slide_dots":"false","slide_infinite":"true","slides_to_show":"3","slides_to_scroll":"1"};
+        var houzez_prop_caoursel_BVkTa = {"slide_auto":"true","auto_speed":"3000","navigation":"true","slide_dots":"true","slide_infinite":"true","slides_to_show":"4","slides_to_scroll":"1"};
+        var houzez_prop_caoursel_Y3tfC = {"slide_auto":"false","auto_speed":"3000","navigation":"true","slide_dots":"true","slide_infinite":"true","slides_to_show":"3","slides_to_scroll":"1"};
+        var houzez_prop_caoursel_FT9Uj = {"slide_auto":"false","auto_speed":"3000","navigation":"true","slide_dots":"false","slide_infinite":"true","slides_to_show":"3","slides_to_scroll":"1"};
+        var houzez_prop_caoursel_hfWp1 = {"slide_auto":"true","auto_speed":"3000","navigation":"true","slide_dots":"true","slide_infinite":"true","slides_to_show":"4","slides_to_scroll":"1"};
+        var houzez_prop_caoursel_h5gqX = {"slide_auto":"true","auto_speed":"3000","navigation":"true","slide_dots":"true","slide_infinite":"true","slides_to_show":"4","slides_to_scroll":"1"};
+        var houzez_prop_caoursel_0pd4N = {"slide_auto":"false","auto_speed":"3000","navigation":"true","slide_dots":"true","slide_infinite":"true","slides_to_show":"3","slides_to_scroll":"1"};
+        var houzez_prop_caoursel_gyxRI = {"slide_auto":"false","auto_speed":"3000","navigation":"true","slide_dots":"false","slide_infinite":"true","slides_to_show":"3","slides_to_scroll":"1"};
+
+
         /* ]]> */
     </script>
     <script type="text/javascript" src="{{ asset('frontend/wp-content/themes/houzez/js/property-carousels.min.js') }}"

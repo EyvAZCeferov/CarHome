@@ -404,7 +404,8 @@
                             <nav>
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item breadcrumb-item-home"><i class="houzez-icon icon-house"></i><a
-                                            href="{{ route('frontend.index', ['page' => 'welcome' ])}}">@lang("additional.routename.welcome")</a></li>
+                                            href="{{ route('frontend.index', ['page' => 'welcome']) }}">@lang('additional.routename.welcome')</a>
+                                    </li>
                                     <li class="breadcrumb-item active">{{ $title }}</li>
                                 </ol>
                             </nav>
@@ -416,34 +417,35 @@
                                 <article class="post-wrap">
                                     <div class="post-header-wrap">
                                         <div class="post-title-wrap">
-                                            <h1>{{$data->name[app()->getLocale().'_name']}}</h1>
+                                            <h1>{{ $data->name[app()->getLocale() . '_name'] }}</h1>
                                         </div>
                                         <ul class="list-unstyled list-inline author-meta flex-grow-1">
 
                                             <li class="list-inline-item">
-                                                <i class="houzez-icon icon-calendar-3 mr-1"></i> {{$data->created_at->format('d.m.Y')}}
+                                                <i class="houzez-icon icon-calendar-3 mr-1"></i>
+                                                {{ $data->created_at->format('d.m.Y') }}
                                             </li>
-                                            @if(!empy($data->category) && isset($data->category->id) && !empty($data->category->id))
-                                            <li class="list-inline-item">
-                                                <i class="houzez-icon icon-tags mr-1"></i> <a
-                                                    href="javascript:void(0)" rel="category tag">{{ $data->category->name[app()->getLocale().'_name'] }}</a>
-                                            </li>
+                                            @if (!empty($data->category) && isset($data->category->id) && !empty($data->category->id))
+                                                <li class="list-inline-item">
+                                                    <i class="houzez-icon icon-tags mr-1"></i> <a href="javascript:void(0)"
+                                                        rel="category tag">{{ $data->category->name[app()->getLocale() . '_name'] }}</a>
+                                                </li>
                                             @endif
                                         </ul>
                                     </div>
-                                    @if(!empty($data->images) && isset($data->images[0]) && !empty($data->images[0]))
-                                    <div class="post-thumbnail-wrap">
-                                        <img fetchpriority="high" width="1170" height="877"
-                                            src="{{ getImageUrl($data->images[0],'images') }}"
-                                            data-src="{{ getImageUrl($data->images[0],'images') }}" class="img-fluid wp-post-image"
-                                            alt="" decoding="async"
-                                            srcset="{{ getImageUrl($data->images[0],'images') }} 1170w, {{ getImageUrl($data->images[0],'images') }} 300w, {{ getImageUrl($data->images[0],'images') }} 1024w, {{ getImageUrl($data->images[0],'images') }} 768w, {{ getImageUrl($data->images[0],'images') }} 592w, {{ getImageUrl($data->images[0],'images') }} 584w, {{ getImageUrl($data->images[0],'images') }} 800w, {{ getImageUrl($data->images[0],'images') }} 120w, {{ getImageUrl($data->images[0],'images') }} 496w"
-                                            data-srcset="{{ getImageUrl($data->images[0],'images') }} 1170w, {{ getImageUrl($data->images[0],'images') }} 300w, {{ getImageUrl($data->images[0],'images') }} 1024w, {{ getImageUrl($data->images[0],'images') }} 768w, {{ getImageUrl($data->images[0],'images') }} 592w, {{ getImageUrl($data->images[0],'images') }} 584w, {{ getImageUrl($data->images[0],'images') }} 800w, {{ getImageUrl($data->images[0],'images') }} 120w, {{ getImageUrl($data->images[0],'images') }} 496w"
-                                            sizes="(max-width: 1170px) 100vw, 1170px">
-                                    </div>
+                                    @if (!empty($data->images) && isset($data->images[0]) && !empty($data->images[0]))
+                                        <div class="post-thumbnail-wrap">
+                                            <img fetchpriority="high" width="1170" height="877"
+                                                src="{{ getImageUrl($data->images[0], 'images') }}"
+                                                data-src="{{ getImageUrl($data->images[0], 'images') }}"
+                                                class="img-fluid wp-post-image" alt="" decoding="async"
+                                                srcset="{{ getImageUrl($data->images[0], 'images') }} 1170w, {{ getImageUrl($data->images[0], 'images') }} 300w, {{ getImageUrl($data->images[0], 'images') }} 1024w, {{ getImageUrl($data->images[0], 'images') }} 768w, {{ getImageUrl($data->images[0], 'images') }} 592w, {{ getImageUrl($data->images[0], 'images') }} 584w, {{ getImageUrl($data->images[0], 'images') }} 800w, {{ getImageUrl($data->images[0], 'images') }} 120w, {{ getImageUrl($data->images[0], 'images') }} 496w"
+                                                data-srcset="{{ getImageUrl($data->images[0], 'images') }} 1170w, {{ getImageUrl($data->images[0], 'images') }} 300w, {{ getImageUrl($data->images[0], 'images') }} 1024w, {{ getImageUrl($data->images[0], 'images') }} 768w, {{ getImageUrl($data->images[0], 'images') }} 592w, {{ getImageUrl($data->images[0], 'images') }} 584w, {{ getImageUrl($data->images[0], 'images') }} 800w, {{ getImageUrl($data->images[0], 'images') }} 120w, {{ getImageUrl($data->images[0], 'images') }} 496w"
+                                                sizes="(max-width: 1170px) 100vw, 1170px">
+                                        </div>
                                     @endif
                                     <div class="post-content-wrap">
-                                        <p>{!! $data->description[app()->getLocale().'_description'] !!}</p>
+                                        <p>{!! $data->description[app()->getLocale() . '_description'] !!}</p>
                                     </div>
 
                                 </article>
@@ -451,6 +453,68 @@
                         </div>
 
                     </div>
+                </div>
+            </section>
+        @break
+
+        @case('standartpages')
+            <section class="content-wrap" style="transform: none;">
+                <div data-elementor-type="wp-page" data-elementor-id="16277" class="elementor elementor-16277">
+                    <section
+                        class="elementor-section elementor-top-section elementor-element elementor-element-45115ca0 elementor-section-height-min-height animated-slow elementor-section-boxed elementor-section-height-default elementor-section-items-middle animated fadeIn"
+                        data-id="45115ca0" data-element_type="section"
+                        data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;animation&quot;:&quot;fadeIn&quot;}">
+                        <div class="elementor-background-overlay"></div>
+                        <div class="elementor-container elementor-column-gap-default">
+                            <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-1526ac2f"
+                                data-id="1526ac2f" data-element_type="column">
+                                <div class="elementor-widget-wrap elementor-element-populated">
+                                    <div class="elementor-element elementor-element-537676f elementor-widget elementor-widget-heading"
+                                        data-id="537676f" data-element_type="widget" data-widget_type="heading.default">
+                                        <div class="elementor-widget-container">
+                                            <h1 class="elementor-heading-title elementor-size-default">
+                                                {{ $data->name[app()->getLocale() . '_name'] }}</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section
+                        class="elementor-section elementor-top-section elementor-element elementor-element-6c661608 elementor-section-boxed elementor-section-height-default elementor-section-height-default"
+                        data-id="6c661608" data-element_type="section"
+                        data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+                        <div class="elementor-container elementor-column-gap-default">
+                            <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-2331cb98"
+                                data-id="2331cb98" data-element_type="column">
+                                <div class="elementor-widget-wrap elementor-element-populated">
+                                    <div class="elementor-element elementor-element-308600b9 elementor-widget elementor-widget-spacer"
+                                        data-id="308600b9" data-element_type="widget" data-widget_type="spacer.default">
+                                        <div class="elementor-widget-container">
+                                            <div class="elementor-spacer">
+                                                <div class="elementor-spacer-inner"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="elementor-element elementor-element-64f26879 elementor-widget elementor-widget-text-editor"
+                                        data-id="64f26879" data-element_type="widget" data-widget_type="text-editor.default">
+                                        <div class="elementor-widget-container">
+                                            <p>{!! $data->description[app()->getLocale() . '_description'] !!}</p>
+                                        </div>
+                                    </div>
+                                    <div class="elementor-element elementor-element-5f34c0dd elementor-widget elementor-widget-spacer"
+                                        data-id="5f34c0dd" data-element_type="widget" data-widget_type="spacer.default">
+                                        <div class="elementor-widget-container">
+                                            <div class="elementor-spacer">
+                                                <div class="elementor-spacer-inner"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
                 </div>
             </section>
         @break
@@ -547,15 +611,15 @@
                                                     class="blog-post-item blog-post-item-v1 post-629 post type-post status-publish format-standard has-post-thumbnail hentry category-business tag-apartment tag-business-development tag-house-for-families tag-houzez tag-luxury tag-real-estate">
                                                     @if (!empty($blog->images) && isset($blog->images[0]) && !empty($blog->images[0]))
                                                         <div class="blog-post-thumb">
-                                                            <a href="{{ route('blogs.show', ['slug' => $blog->slugs[app()->getLocale() . '_slug'], 'page' => 'blogs']) }}"
+                                                            <a href="{{ route('frontend.show', ['slug' => $blog->slugs[app()->getLocale() . '_slug'], 'page' => 'blogs']) }}"
                                                                 class="hover-effect">
                                                                 <img width="592" height="444"
                                                                     src="{{ getImageUrl($blog->images[0], 'images') }}"
                                                                     data-src="{{ getImageUrl($blog->images[0], 'images') }}"
                                                                     class="img-fluid wp-post-image" alt=""
                                                                     decoding="async"
-                                                                    srcset="{{ getImageUrl($blog->images[0], 'images') }} 592w, ../../../wp-content/uploads/2016/02/034-300x225.jpg 300w, ../../../wp-content/uploads/2016/02/034-1024x768.jpg 1024w, ../../../wp-content/uploads/2016/02/034-768x576.jpg 768w, ../../../wp-content/uploads/2016/02/034-584x438.jpg 584w, ../../../wp-content/uploads/2016/02/034-800x600.jpg 800w, ../../../wp-content/uploads/2016/02/034-120x90.jpg 120w, ../../../wp-content/uploads/2016/02/034-496x372.jpg 496w, ../../../wp-content/uploads/2016/02/034.jpg 1170w"
-                                                                    data-srcset="{{ getImageUrl($blog->images[0], 'images') }} 592w, ../../../wp-content/uploads/2016/02/034-300x225.jpg 300w, ../../../wp-content/uploads/2016/02/034-1024x768.jpg 1024w, ../../../wp-content/uploads/2016/02/034-768x576.jpg 768w, ../../../wp-content/uploads/2016/02/034-584x438.jpg 584w, ../../../wp-content/uploads/2016/02/034-800x600.jpg 800w, ../../../wp-content/uploads/2016/02/034-120x90.jpg 120w, ../../../wp-content/uploads/2016/02/034-496x372.jpg 496w, ../../../wp-content/uploads/2016/02/034.jpg 1170w"
+                                                                    srcset="{{ getImageUrl($blog->images[0], 'images') }} 592w, {{ getImageUrl($blog->images[0], 'images') }} 300w, {{ getImageUrl($blog->images[0], 'images') }} 1024w, {{ getImageUrl($blog->images[0], 'images') }} 768w, {{ getImageUrl($blog->images[0], 'images') }} 584w, {{ getImageUrl($blog->images[0], 'images') }} 800w, {{ getImageUrl($blog->images[0], 'images') }} 120w, {{ getImageUrl($blog->images[0], 'images') }} 496w, {{ getImageUrl($blog->images[0], 'images') }} 1170w"
+                                                                    data-srcset="{{ getImageUrl($blog->images[0], 'images') }} 592w, {{ getImageUrl($blog->images[0], 'images') }} 300w, {{ getImageUrl($blog->images[0], 'images') }} 1024w, {{ getImageUrl($blog->images[0], 'images') }} 768w, {{ getImageUrl($blog->images[0], 'images') }} 584w, {{ getImageUrl($blog->images[0], 'images') }} 800w, {{ getImageUrl($blog->images[0], 'images') }} 120w, {{ getImageUrl($blog->images[0], 'images') }} 496w, {{ getImageUrl($blog->images[0], 'images') }} 1170w"
                                                                     sizes="(max-width: 592px) 100vw, 592px"> </a>
                                                         </div>
                                                     @endif
@@ -578,7 +642,7 @@
                                                         </div>
                                                         <div class="blog-post-title">
                                                             <h3><a
-                                                                    href="{{ route('blogs.show', ['slug' => $blog->slugs[app()->getLocale() . '_slug'], 'page' => 'blogs']) }}">10
+                                                                    href="{{ route('frontend.show', ['slug' => $blog->slugs[app()->getLocale() . '_slug'], 'page' => 'blogs']) }}">10
                                                                     {{ $blog->name[app()->getLocale() . '_name'] }}</a></h3>
                                                         </div>
                                                         <div class="blog-post-body">
@@ -586,7 +650,7 @@
                                                         </div>
                                                         <div class="blog-post-link">
                                                             <a
-                                                                href="{{ route('blogs.show', ['slug' => $blog->slugs[app()->getLocale() . '_slug'], 'page' => 'blogs']) }}">@lang('additional.fields.readmore')</a>
+                                                                href="{{ route('frontend.show', ['slug' => $blog->slugs[app()->getLocale() . '_slug'], 'page' => 'blogs']) }}">@lang('additional.fields.readmore')</a>
                                                         </div>
                                                     </div>
                                                 </div>

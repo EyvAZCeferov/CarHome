@@ -3,3 +3,24 @@
 .hoveritem:active{
     cursor: pointer;
 }
+
+.whatsappbuttontoupper{
+    position:sticky;
+    bottom:5%;
+    right:1%;
+    border-radius: 10px;
+    box-shadow:3px 4px 4px rgba(0,0,0,.3);
+    width:60px;
+    height:60px;
+    font-size:14px;
+    padding:0;
+    margin:0;
+    line-height: 60px;
+    text-align: center;
+    vertical-align: baseline;
+    display: inline-block;
+    color:#fff;
+    background-color: #25D366;
+    z-index: 100;
+    transition:all 0.5s ease-in-out;
+}
